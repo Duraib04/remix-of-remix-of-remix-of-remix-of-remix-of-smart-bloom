@@ -1,5 +1,6 @@
  import { useState, useEffect, useCallback } from "react";
  import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "./useAuth";
  
  interface Farm {
    id: string;
@@ -7,11 +8,14 @@
    latitude: number;
    longitude: number;
    address: string | null;
+  soil_type: string | null;
+  user_id: string | null;
    created_at: string;
    updated_at: string;
  }
  
  export function useFarm() {
+  const { user } = useAuth();
    const [farm, setFarm] = useState<Farm | null>(null);
    const [farms, setFarms] = useState<Farm[]>([]);
    const [isLoading, setIsLoading] = useState(true);
@@ -45,13 +49,21 @@
      name: string,
      latitude: number,
      longitude: number,
-     address?: string
+    address?: string,
+    soilType?: string
    ) => {
      try {
        setIsLoading(true);
        const { data, error: insertError } = await supabase
          .from("farms")
-         .insert({ name, latitude, longitude, address })
+        .insert({ 
+          name, 
+          latitude, 
+          longitude, 
+          address,
+          soil_type: soilType,
+          user_id: user?.id 
+        })
          .select()
          .single();
  
@@ -67,19 +79,24 @@
      } finally {
        setIsLoading(false);
      }
-   }, []);
+  }, [user]);
  
    // Update farm location
    const updateFarmLocation = useCallback(async (
      farmId: string,
      latitude: number,
      longitude: number,
-     address?: string
+    address?: string,
+    soilType?: string
    ) => {
      try {
+      const updateData: Record<string, unknown> = { latitude, longitude };
+      if (address !== undefined) updateData.address = address;
+      if (soilType !== undefined) updateData.soil_type = soilType;
+      
        const { data, error: updateError } = await supabase
          .from("farms")
-         .update({ latitude, longitude, address })
+        .update(updateData)
          .eq("id", farmId)
          .select()
          .single();
@@ -96,6 +113,27 @@
      }
    }, []);
  
+  // Update soil type only
+  const updateSoilType = useCallback(async (farmId: string, soilType: string) => {
+    try {
+      const { data, error: updateError } = await supabase
+        .from("farms")
+        .update({ soil_type: soilType })
+        .eq("id", farmId)
+        .select()
+        .single();
+
+      if (updateError) throw updateError;
+      
+      setFarm(data);
+      setFarms(prev => prev.map(f => f.id === farmId ? data : f));
+      return data;
+    } catch (err) {
+      console.error("Error updating soil type:", err);
+      throw err;
+    }
+  }, []);
+
    // Select active farm
    const selectFarm = useCallback((farmId: string) => {
      const selected = farms.find(f => f.id === farmId);
@@ -113,6 +151,7 @@
      error,
      createFarm,
      updateFarmLocation,
+    updateSoilType,
      selectFarm,
      refetch: fetchFarms,
    };

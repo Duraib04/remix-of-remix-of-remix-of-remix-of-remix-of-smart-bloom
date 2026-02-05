@@ -1,18 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Leaf, Bell, Settings, Menu } from "lucide-react";
+import { Leaf, Settings, Menu, LogIn } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSelector } from "./LanguageSelector";
+import { NotificationCenter } from "./NotificationCenter";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 interface HeaderProps {
-  notifications?: number;
   onMenuClick?: () => void;
   className?: string;
 }
 
-export function Header({ notifications = 0, onMenuClick, className }: HeaderProps) {
+export function Header({ onMenuClick, className }: HeaderProps) {
   const { t } = useLanguage();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   return (
     <header
@@ -55,16 +59,9 @@ export function Header({ notifications = 0, onMenuClick, className }: HeaderProp
         {/* Actions */}
         <div className="flex items-center gap-2">
           <LanguageSelector />
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            {notifications > 0 && (
-              <span className="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 text-xs font-bold bg-destructive text-destructive-foreground rounded-full">
-                {notifications > 9 ? "9+" : notifications}
-              </span>
-            )}
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Settings className="h-5 w-5" />
+          {isAuthenticated && <NotificationCenter />}
+          <Button variant="ghost" size="icon" onClick={() => navigate(isAuthenticated ? "/settings" : "/auth")}>
+            {isAuthenticated ? <Settings className="h-5 w-5" /> : <LogIn className="h-5 w-5" />}
           </Button>
         </div>
       </div>

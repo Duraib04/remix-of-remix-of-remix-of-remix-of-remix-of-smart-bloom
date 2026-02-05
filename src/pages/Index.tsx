@@ -10,6 +10,7 @@
  import { WaterEfficiency } from "@/components/dashboard/WaterEfficiency";
  import { VoiceAssistant } from "@/components/dashboard/VoiceAssistant";
  import { LocationSelector } from "@/components/dashboard/LocationSelector";
+import { CropRecommendations } from "@/components/dashboard/CropRecommendations";
  import { useLanguage } from "@/contexts/LanguageContext";
  import { useWeather } from "@/hooks/useWeather";
  import { useRainAlert } from "@/hooks/useRainAlert";
@@ -26,7 +27,7 @@
    const { checkRainAlert } = useRainAlert();
    
    // Farm and sensor data hooks
-   const { farm, farms, isLoading: farmLoading, createFarm, updateFarmLocation, selectFarm } = useFarm();
+  const { farm, farms, isLoading: farmLoading, createFarm, updateFarmLocation, updateSoilType, selectFarm } = useFarm();
    const { aggregatedData, chartData } = useSensorData(farm?.id || null);
    const { logs: activityLogs } = useActivityLogs(farm?.id || null);
    const { efficiencyData, logIrrigation } = useIrrigationLogs(farm?.id || null);
@@ -123,7 +124,7 @@
  
    return (
      <div className="min-h-screen bg-background">
-       <Header notifications={2} />
+        <Header />
        
        <main className="container px-4 lg:px-8 py-6 space-y-6">
          {/* Hero Section with Key Metrics */}
@@ -180,6 +181,19 @@
            />
          </section>
  
+          {/* Crop Recommendations */}
+          <section className="animate-fade-in" style={{ animationDelay: "0.06s" }}>
+            <CropRecommendations
+              farmId={farm?.id || null}
+              soilType={farm?.soil_type || null}
+              weather={{
+                temperature: weather.temperature,
+                humidity: weather.humidity,
+                rainProbability: weather.rainProbability,
+              }}
+            />
+          </section>
+
          {/* Rain Alert Banner */}
          {showRainAlert && weather.rainProbability > 60 && (
            <section className="animate-fade-in">
