@@ -32,14 +32,14 @@ interface Translations {
   rainChance: string;
   wind: string;
   today: string;
-   locationNeeded: string;
-   allowLocation: string;
-   farmLocation: string;
-   detectingLocation: string;
-   locationError: string;
-   unknownLocation: string;
-   yourArea: string;
-   rainAlert: string;
+  locationNeeded: string;
+  allowLocation: string;
+  farmLocation: string;
+  detectingLocation: string;
+  locationError: string;
+  unknownLocation: string;
+  yourArea: string;
+  rainAlert: string;
   
   // Irrigation
   waterControl: string;
@@ -99,6 +99,116 @@ interface Translations {
   minutes: string;
   liters: string;
   thisWeek: string;
+
+  // Auth
+  welcome: string;
+  signInDescription: string;
+  signIn: string;
+  signUp: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  createAccount: string;
+  checkEmail: string;
+  welcomeBack: string;
+  accountCreated: string;
+  invalidEmail: string;
+  passwordMin: string;
+  passwordMismatch: string;
+  alreadyRegistered: string;
+  verifyEmail: string;
+  invalidCredentials: string;
+
+  // Settings page
+  account: string;
+  manageAccount: string;
+  signedIn: string;
+  signOut: string;
+  notifications: string;
+  configureNotifications: string;
+  enableNotifications: string;
+  notificationDescription: string;
+  rainThreshold: string;
+  thresholdDescription: string;
+  preferences: string;
+  temperatureUnit: string;
+  celsius: string;
+  fahrenheit: string;
+  settingsUpdated: string;
+  languageUpdated: string;
+
+  // Install page
+  installApp: string;
+  appInstalled: string;
+  appInstalledDesc: string;
+  installDescription: string;
+  installNow: string;
+  installOnIos: string;
+  installOnAndroid: string;
+  benefits: string;
+  quickAccess: string;
+  worksOffline: string;
+  nativeExperience: string;
+  fasterLoading: string;
+  goToDashboard: string;
+  openInBrowser: string;
+  tapShare: string;
+  tapAddHome: string;
+  tapAdd: string;
+  tapMenu: string;
+  tapInstall: string;
+
+  // Location/Farm
+  addFarm: string;
+  editLocation: string;
+  updateLocation: string;
+  farmName: string;
+  address: string;
+  latitude: string;
+  longitude: string;
+  soilType: string;
+  detectLocation: string;
+  noFarmsAdded: string;
+  farmDialogDesc: string;
+  searchAddress: string;
+  selectSoilType: string;
+  soilTypeHelp: string;
+  enterCoords: string;
+
+  // Soil Types
+  claySoil: string;
+  sandySoil: string;
+  loamySoil: string;
+  siltSoil: string;
+  peatSoil: string;
+  chalkySoil: string;
+  blackSoil: string;
+  redSoil: string;
+  alluvialSoil: string;
+
+  // Crop Recommendations
+  cropRecommendations: string;
+  basedOnSoil: string;
+  suitable: string;
+  noRecommendations: string;
+  getRecommendations: string;
+  failedRecommendations: string;
+  setSoilType: string;
+  retry: string;
+
+  // AI Insights
+  aiInsights: string;
+  irrigationAdvice: string;
+  healthAnalysis: string;
+  confidenceScore: string;
+  analyzingData: string;
+  noDataYet: string;
+  refreshAnalysis: string;
+  factors: string;
+  recommendation: string;
+  optimal: string;
+  warning: string;
+  critical: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -127,14 +237,14 @@ const translations: Record<Language, Translations> = {
     rainChance: 'Rain Chance',
     wind: 'Wind',
     today: 'Today',
-     locationNeeded: 'Location access needed for weather',
-     allowLocation: 'Allow Location',
-     farmLocation: 'Your Farm Location',
-     detectingLocation: 'Finding your location...',
-     locationError: 'Could not find location',
-     unknownLocation: 'Location not set',
-     yourArea: 'your area',
-     rainAlert: 'Rain Alert!',
+    locationNeeded: 'Location access needed for weather',
+    allowLocation: 'Allow Location',
+    farmLocation: 'Your Farm Location',
+    detectingLocation: 'Finding your location...',
+    locationError: 'Could not find location',
+    unknownLocation: 'Location not set',
+    yourArea: 'your area',
+    rainAlert: 'Rain Alert!',
     
     waterControl: 'Water Control',
     autoMode: 'Auto',
@@ -186,6 +296,116 @@ const translations: Record<Language, Translations> = {
     minutes: 'min',
     liters: 'L',
     thisWeek: 'this week',
+
+    // Auth
+    welcome: 'Welcome',
+    signInDescription: 'Sign in to your account or create a new one',
+    signIn: 'Sign In',
+    signUp: 'Sign Up',
+    email: 'Email',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    createAccount: 'Create Account',
+    checkEmail: 'Check your email',
+    welcomeBack: 'Welcome back!',
+    accountCreated: 'Your account has been created successfully.',
+    invalidEmail: 'Please enter a valid email address',
+    passwordMin: 'Password must be at least 6 characters',
+    passwordMismatch: 'Passwords do not match',
+    alreadyRegistered: 'This email is already registered. Please sign in instead.',
+    verifyEmail: 'Please verify your email address before signing in.',
+    invalidCredentials: 'Invalid email or password. Please try again.',
+
+    // Settings
+    account: 'Account',
+    manageAccount: 'Manage your account settings',
+    signedIn: 'Signed in',
+    signOut: 'Sign Out',
+    notifications: 'Notifications',
+    configureNotifications: 'Configure notification preferences',
+    enableNotifications: 'Enable Notifications',
+    notificationDescription: 'Receive alerts for rain, irrigation, and system events',
+    rainThreshold: 'Rain Alert Threshold',
+    thresholdDescription: 'Get notified when rain probability exceeds this threshold',
+    preferences: 'Preferences',
+    temperatureUnit: 'Temperature Unit',
+    celsius: 'Celsius',
+    fahrenheit: 'Fahrenheit',
+    settingsUpdated: 'Settings updated',
+    languageUpdated: 'Language preference saved',
+
+    // Install
+    installApp: 'Install App',
+    appInstalled: 'App Already Installed!',
+    appInstalledDesc: 'FarmWise is already installed on your device. Look for it on your home screen.',
+    installDescription: 'Install the app on your device for quick access, offline support, and a native experience.',
+    installNow: 'Install Now',
+    installOnIos: 'Install on iOS',
+    installOnAndroid: 'Install on Android',
+    benefits: 'Benefits',
+    quickAccess: 'Quick access from your home screen',
+    worksOffline: 'Works offline - view your farm data anytime',
+    nativeExperience: 'Native app experience - no browser bars',
+    fasterLoading: 'Faster loading times',
+    goToDashboard: 'Go to Dashboard',
+    openInBrowser: 'Open this page in Chrome or Safari on your mobile device to install the app.',
+    tapShare: 'Tap the Share button in Safari',
+    tapAddHome: 'Scroll down and tap "Add to Home Screen"',
+    tapAdd: 'Tap "Add" to confirm',
+    tapMenu: 'Tap the menu button in Chrome',
+    tapInstall: 'Tap "Add to Home screen" or "Install app"',
+
+    // Farm/Location
+    addFarm: 'Add Farm',
+    editLocation: 'Edit Location',
+    updateLocation: 'Update Location',
+    farmName: 'Farm Name',
+    address: 'Address',
+    latitude: 'Latitude',
+    longitude: 'Longitude',
+    soilType: 'Soil Type',
+    detectLocation: 'Detect My Location (GPS)',
+    noFarmsAdded: 'No farms added yet',
+    farmDialogDesc: 'Enter farm details or use GPS to detect your location automatically.',
+    searchAddress: 'Enter village, town or address',
+    selectSoilType: 'Select soil type',
+    soilTypeHelp: 'Select your soil type for better crop recommendations',
+    enterCoords: 'Please enter or detect location coordinates',
+
+    // Soil Types
+    claySoil: 'Clay Soil',
+    sandySoil: 'Sandy Soil',
+    loamySoil: 'Loamy Soil',
+    siltSoil: 'Silt Soil',
+    peatSoil: 'Peat Soil',
+    chalkySoil: 'Chalky Soil',
+    blackSoil: 'Black Soil (Regur)',
+    redSoil: 'Red Soil',
+    alluvialSoil: 'Alluvial Soil',
+
+    // Crop Recommendations
+    cropRecommendations: 'Crop Recommendations',
+    basedOnSoil: 'Based on',
+    suitable: 'suitable',
+    noRecommendations: 'No recommendations available',
+    getRecommendations: 'Get Recommendations',
+    failedRecommendations: 'Failed to get recommendations',
+    setSoilType: 'Set your soil type to get crop recommendations',
+    retry: 'Retry',
+
+    // AI Insights
+    aiInsights: 'AI Insights',
+    irrigationAdvice: 'Irrigation Advice',
+    healthAnalysis: 'Health Analysis',
+    confidenceScore: 'Confidence',
+    analyzingData: 'Analyzing your farm data...',
+    noDataYet: 'Connect sensors to get AI insights',
+    refreshAnalysis: 'Refresh Analysis',
+    factors: 'Factors Considered',
+    recommendation: 'Recommendation',
+    optimal: 'Optimal',
+    warning: 'Warning',
+    critical: 'Critical',
   },
   ta: {
     appName: 'அக்வாஸ்மார்ட்',
@@ -212,14 +432,14 @@ const translations: Record<Language, Translations> = {
     rainChance: 'மழை வாய்ப்பு',
     wind: 'காற்று',
     today: 'இன்று',
-     locationNeeded: 'வானிலைக்கு இடம் தேவை',
-     allowLocation: 'இடம் அனுமதி',
-     farmLocation: 'உங்கள் தோட்ட இடம்',
-     detectingLocation: 'இடம் கண்டுபிடிக்கிறது...',
-     locationError: 'இடம் கிடைக்கவில்லை',
-     unknownLocation: 'இடம் தெரியவில்லை',
-     yourArea: 'உங்கள் பகுதி',
-     rainAlert: 'மழை எச்சரிக்கை!',
+    locationNeeded: 'வானிலைக்கு இடம் தேவை',
+    allowLocation: 'இடம் அனுமதி',
+    farmLocation: 'உங்கள் தோட்ட இடம்',
+    detectingLocation: 'இடம் கண்டுபிடிக்கிறது...',
+    locationError: 'இடம் கிடைக்கவில்லை',
+    unknownLocation: 'இடம் தெரியவில்லை',
+    yourArea: 'உங்கள் பகுதி',
+    rainAlert: 'மழை எச்சரிக்கை!',
     
     waterControl: 'தண்ணீர் கட்டுப்பாடு',
     autoMode: 'ஆட்டோ',
@@ -271,6 +491,116 @@ const translations: Record<Language, Translations> = {
     minutes: 'நிமிடம்',
     liters: 'லிட்டர்',
     thisWeek: 'இந்த வாரம்',
+
+    // Auth
+    welcome: 'வரவேற்கிறோம்',
+    signInDescription: 'உங்கள் கணக்கில் உள்நுழையவும் அல்லது புதிய கணக்கு உருவாக்கவும்',
+    signIn: 'உள்நுழை',
+    signUp: 'பதிவு செய்',
+    email: 'மின்னஞ்சல்',
+    password: 'கடவுச்சொல்',
+    confirmPassword: 'கடவுச்சொல் உறுதிப்படுத்து',
+    createAccount: 'கணக்கு உருவாக்கு',
+    checkEmail: 'உங்கள் மின்னஞ்சலை சரிபாருங்கள்',
+    welcomeBack: 'மீண்டும் வரவேற்கிறோம்!',
+    accountCreated: 'உங்கள் கணக்கு வெற்றிகரமாக உருவாக்கப்பட்டது.',
+    invalidEmail: 'சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும்',
+    passwordMin: 'கடவுச்சொல் குறைந்தது 6 எழுத்துகள் இருக்க வேண்டும்',
+    passwordMismatch: 'கடவுச்சொற்கள் பொருந்தவில்லை',
+    alreadyRegistered: 'இந்த மின்னஞ்சல் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது. உள்நுழையவும்.',
+    verifyEmail: 'உள்நுழைவதற்கு முன் உங்கள் மின்னஞ்சலை சரிபாருங்கள்.',
+    invalidCredentials: 'தவறான மின்னஞ்சல் அல்லது கடவுச்சொல். மீண்டும் முயற்சிக்கவும்.',
+
+    // Settings
+    account: 'கணக்கு',
+    manageAccount: 'உங்கள் கணக்கு அமைப்புகளை நிர்வகிக்கவும்',
+    signedIn: 'உள்நுழைந்துள்ளீர்கள்',
+    signOut: 'வெளியேறு',
+    notifications: 'அறிவிப்புகள்',
+    configureNotifications: 'அறிவிப்பு விருப்பங்களை கட்டமைக்கவும்',
+    enableNotifications: 'அறிவிப்புகளை இயக்கு',
+    notificationDescription: 'மழை, நீர்ப்பாசனம் மற்றும் சிஸ்டம் நிகழ்வுகளுக்கு எச்சரிக்கைகள் பெறுங்கள்',
+    rainThreshold: 'மழை எச்சரிக்கை அளவு',
+    thresholdDescription: 'மழை வாய்ப்பு இந்த அளவை தாண்டும்போது அறிவிப்பு பெறுங்கள்',
+    preferences: 'விருப்பங்கள்',
+    temperatureUnit: 'வெப்பநிலை அலகு',
+    celsius: 'செல்சியஸ்',
+    fahrenheit: 'ஃபாரன்ஹீட்',
+    settingsUpdated: 'அமைப்புகள் புதுப்பிக்கப்பட்டன',
+    languageUpdated: 'மொழி விருப்பம் சேமிக்கப்பட்டது',
+
+    // Install
+    installApp: 'ஆப்பை நிறுவு',
+    appInstalled: 'ஆப் ஏற்கனவே நிறுவப்பட்டுள்ளது!',
+    appInstalledDesc: 'FarmWise உங்கள் சாதனத்தில் ஏற்கனவே நிறுவப்பட்டுள்ளது. முகப்பு திரையில் பாருங்கள்.',
+    installDescription: 'விரைவான அணுகல், ஆஃப்லைன் ஆதரவு மற்றும் நேட்டிவ் அனுபவத்திற்கு ஆப்பை நிறுவுங்கள்.',
+    installNow: 'இப்போது நிறுவு',
+    installOnIos: 'iOS-ல் நிறுவு',
+    installOnAndroid: 'Android-ல் நிறுவு',
+    benefits: 'நன்மைகள்',
+    quickAccess: 'முகப்பு திரையிலிருந்து விரைவான அணுகல்',
+    worksOffline: 'ஆஃப்லைனில் வேலை செய்யும் - எப்போது வேண்டுமானாலும் பாருங்கள்',
+    nativeExperience: 'நேட்டிவ் ஆப் அனுபவம் - பிரவுசர் பார்கள் இல்லை',
+    fasterLoading: 'வேகமான ஏற்றுதல்',
+    goToDashboard: 'டாஷ்போர்டுக்கு செல்',
+    openInBrowser: 'ஆப்பை நிறுவ Chrome அல்லது Safari-ல் திறக்கவும்.',
+    tapShare: 'Safari-ல் Share பட்டனை அழுத்துங்கள்',
+    tapAddHome: 'கீழே ஸ்க்ரோல் செய்து "Add to Home Screen" அழுத்துங்கள்',
+    tapAdd: '"Add" அழுத்தி உறுதிப்படுத்துங்கள்',
+    tapMenu: 'Chrome-ல் மெனு பட்டனை அழுத்துங்கள்',
+    tapInstall: '"Add to Home screen" அல்லது "Install app" அழுத்துங்கள்',
+
+    // Farm/Location
+    addFarm: 'தோட்டம் சேர்',
+    editLocation: 'இடம் திருத்து',
+    updateLocation: 'இடம் புதுப்பி',
+    farmName: 'தோட்ட பெயர்',
+    address: 'முகவரி',
+    latitude: 'அட்சரேகை',
+    longitude: 'தீர்க்கரேகை',
+    soilType: 'மண் வகை',
+    detectLocation: 'எனது இடம் கண்டுபிடி (GPS)',
+    noFarmsAdded: 'தோட்டங்கள் இன்னும் சேர்க்கப்படவில்லை',
+    farmDialogDesc: 'தோட்ட விவரங்களை உள்ளிடவும் அல்லது GPS பயன்படுத்தி கண்டுபிடிக்கவும்.',
+    searchAddress: 'கிராமம், நகரம் அல்லது முகவரி உள்ளிடவும்',
+    selectSoilType: 'மண் வகையை தேர்ந்தெடுக்கவும்',
+    soilTypeHelp: 'சிறந்த பயிர் பரிந்துரைகளுக்கு மண் வகையை தேர்ந்தெடுக்கவும்',
+    enterCoords: 'இடம் ஆயங்களை உள்ளிடவும் அல்லது கண்டுபிடிக்கவும்',
+
+    // Soil Types
+    claySoil: 'களிமண்',
+    sandySoil: 'மணல் மண்',
+    loamySoil: 'வண்டல் மண்',
+    siltSoil: 'சேறு மண்',
+    peatSoil: 'தொழு மண்',
+    chalkySoil: 'சுண்ணாம்பு மண்',
+    blackSoil: 'கருப்பு மண் (ரேகூர்)',
+    redSoil: 'செம்மண்',
+    alluvialSoil: 'வண்டல் மண்',
+
+    // Crop Recommendations
+    cropRecommendations: 'பயிர் பரிந்துரைகள்',
+    basedOnSoil: 'அடிப்படையில்',
+    suitable: 'பொருத்தமானது',
+    noRecommendations: 'பரிந்துரைகள் இல்லை',
+    getRecommendations: 'பரிந்துரைகள் பெறு',
+    failedRecommendations: 'பரிந்துரைகள் பெற முடியவில்லை',
+    setSoilType: 'பயிர் பரிந்துரைகளுக்கு மண் வகையை அமைக்கவும்',
+    retry: 'மீண்டும் முயற்சி',
+
+    // AI Insights
+    aiInsights: 'AI நுண்ணறிவுகள்',
+    irrigationAdvice: 'நீர்ப்பாசன ஆலோசனை',
+    healthAnalysis: 'ஆரோக்கிய பகுப்பாய்வு',
+    confidenceScore: 'நம்பிக்கை',
+    analyzingData: 'உங்கள் தோட்ட தரவை பகுப்பாய்வு செய்கிறது...',
+    noDataYet: 'AI நுண்ணறிவுகளுக்கு சென்சார்களை இணைக்கவும்',
+    refreshAnalysis: 'பகுப்பாய்வை புதுப்பி',
+    factors: 'கருத்தில் கொள்ளப்பட்ட காரணிகள்',
+    recommendation: 'பரிந்துரை',
+    optimal: 'சிறந்தது',
+    warning: 'எச்சரிக்கை',
+    critical: 'முக்கியமானது',
   },
   tanglish: {
     appName: 'AquaSmart',
@@ -297,14 +627,14 @@ const translations: Record<Language, Translations> = {
     rainChance: 'Mazhai Vaippu',
     wind: 'Kaatru',
     today: 'Innaiku',
-     locationNeeded: 'Weather ku location venum',
-     allowLocation: 'Location Allow Pannunga',
-     farmLocation: 'Unga Thotam Location',
-     detectingLocation: 'Location kandupidikiranga...',
-     locationError: 'Location kidaikala',
-     unknownLocation: 'Location theriyala',
-     yourArea: 'unga area',
-     rainAlert: 'Mazhai Alert!',
+    locationNeeded: 'Weather ku location venum',
+    allowLocation: 'Location Allow Pannunga',
+    farmLocation: 'Unga Thotam Location',
+    detectingLocation: 'Location kandupidikiranga...',
+    locationError: 'Location kidaikala',
+    unknownLocation: 'Location theriyala',
+    yourArea: 'unga area',
+    rainAlert: 'Mazhai Alert!',
     
     waterControl: 'Thanneer Control',
     autoMode: 'Auto',
@@ -356,6 +686,116 @@ const translations: Record<Language, Translations> = {
     minutes: 'min',
     liters: 'L',
     thisWeek: 'inda week',
+
+    // Auth
+    welcome: 'Welcome',
+    signInDescription: 'Unga account-la sign in pannunga illa pudhu account create pannunga',
+    signIn: 'Sign In',
+    signUp: 'Sign Up',
+    email: 'Email',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    createAccount: 'Account Create Pannu',
+    checkEmail: 'Unga email check pannunga',
+    welcomeBack: 'Welcome back!',
+    accountCreated: 'Unga account successfully create aayiduchu.',
+    invalidEmail: 'Valid email address enter pannunga',
+    passwordMin: 'Password minimum 6 characters irukanum',
+    passwordMismatch: 'Passwords match aagala',
+    alreadyRegistered: 'Indha email already registered. Please sign in pannunga.',
+    verifyEmail: 'Sign in panna munnadhi email verify pannunga.',
+    invalidCredentials: 'Wrong email or password. Try again pannunga.',
+
+    // Settings
+    account: 'Account',
+    manageAccount: 'Unga account settings manage pannunga',
+    signedIn: 'Signed in',
+    signOut: 'Sign Out',
+    notifications: 'Notifications',
+    configureNotifications: 'Notification preferences set pannunga',
+    enableNotifications: 'Notifications Enable Pannu',
+    notificationDescription: 'Mazhai, watering, system events ku alerts varum',
+    rainThreshold: 'Mazhai Alert Threshold',
+    thresholdDescription: 'Mazhai chance indha level thandi notify pannும்',
+    preferences: 'Preferences',
+    temperatureUnit: 'Temperature Unit',
+    celsius: 'Celsius',
+    fahrenheit: 'Fahrenheit',
+    settingsUpdated: 'Settings updated',
+    languageUpdated: 'Language preference saved',
+
+    // Install
+    installApp: 'App Install Pannu',
+    appInstalled: 'App Already Installed!',
+    appInstalledDesc: 'FarmWise unga device-la already install aayiduchu. Home screen-la parunga.',
+    installDescription: 'Quick access, offline support, native experience ku app install pannunga.',
+    installNow: 'Ippo Install Pannu',
+    installOnIos: 'iOS-la Install Pannu',
+    installOnAndroid: 'Android-la Install Pannu',
+    benefits: 'Benefits',
+    quickAccess: 'Home screen-la irundhu quick access',
+    worksOffline: 'Offline-la velai seiyum - eppo venum paalum parunga',
+    nativeExperience: 'Native app experience - browser bars illa',
+    fasterLoading: 'Fast-a load aagum',
+    goToDashboard: 'Dashboard-ku Po',
+    openInBrowser: 'App install panna Chrome or Safari-la open pannunga.',
+    tapShare: 'Safari-la Share button tap pannunga',
+    tapAddHome: 'Scroll panni "Add to Home Screen" tap pannunga',
+    tapAdd: '"Add" tap panni confirm pannunga',
+    tapMenu: 'Chrome-la menu button tap pannunga',
+    tapInstall: '"Add to Home screen" or "Install app" tap pannunga',
+
+    // Farm/Location
+    addFarm: 'Farm Add Pannu',
+    editLocation: 'Location Edit Pannu',
+    updateLocation: 'Location Update Pannu',
+    farmName: 'Farm Name',
+    address: 'Address',
+    latitude: 'Latitude',
+    longitude: 'Longitude',
+    soilType: 'Mann Vagai',
+    detectLocation: 'En Location Kandupidi (GPS)',
+    noFarmsAdded: 'Farms innumnu add aagala',
+    farmDialogDesc: 'Farm details enter pannunga illa GPS use panni kandupidinga.',
+    searchAddress: 'Village, town or address enter pannunga',
+    selectSoilType: 'Mann vagai select pannunga',
+    soilTypeHelp: 'Better payir recommendations ku mann vagai select pannunga',
+    enterCoords: 'Location coordinates enter pannunga illa detect pannunga',
+
+    // Soil Types
+    claySoil: 'Clay Mann',
+    sandySoil: 'Manal Mann',
+    loamySoil: 'Loamy Mann',
+    siltSoil: 'Silt Mann',
+    peatSoil: 'Peat Mann',
+    chalkySoil: 'Chalky Mann',
+    blackSoil: 'Black Mann (Regur)',
+    redSoil: 'Red Mann',
+    alluvialSoil: 'Alluvial Mann',
+
+    // Crop Recommendations
+    cropRecommendations: 'Payir Recommendations',
+    basedOnSoil: 'Based on',
+    suitable: 'suitable',
+    noRecommendations: 'Recommendations illa',
+    getRecommendations: 'Recommendations Edu',
+    failedRecommendations: 'Recommendations edukka mudiyala',
+    setSoilType: 'Payir recommendations ku mann vagai set pannunga',
+    retry: 'Retry',
+
+    // AI Insights
+    aiInsights: 'AI Insights',
+    irrigationAdvice: 'Watering Advice',
+    healthAnalysis: 'Health Analysis',
+    confidenceScore: 'Confidence',
+    analyzingData: 'Unga farm data analyze panranga...',
+    noDataYet: 'AI insights ku sensors connect pannunga',
+    refreshAnalysis: 'Analysis Refresh Pannu',
+    factors: 'Factors Considered',
+    recommendation: 'Recommendation',
+    optimal: 'Optimal',
+    warning: 'Warning',
+    critical: 'Critical',
   },
   hi: {
     appName: 'एक्वास्मार्ट',
@@ -382,14 +822,14 @@ const translations: Record<Language, Translations> = {
     rainChance: 'बारिश की संभावना',
     wind: 'हवा',
     today: 'आज',
-     locationNeeded: 'मौसम के लिए स्थान आवश्यक',
-     allowLocation: 'स्थान अनुमति दें',
-     farmLocation: 'आपके खेत का स्थान',
-     detectingLocation: 'स्थान खोज रहा है...',
-     locationError: 'स्थान नहीं मिला',
-     unknownLocation: 'स्थान अज्ञात',
-     yourArea: 'आपका क्षेत्र',
-     rainAlert: 'बारिश की चेतावनी!',
+    locationNeeded: 'मौसम के लिए स्थान आवश्यक',
+    allowLocation: 'स्थान अनुमति दें',
+    farmLocation: 'आपके खेत का स्थान',
+    detectingLocation: 'स्थान खोज रहा है...',
+    locationError: 'स्थान नहीं मिला',
+    unknownLocation: 'स्थान अज्ञात',
+    yourArea: 'आपका क्षेत्र',
+    rainAlert: 'बारिश की चेतावनी!',
     
     waterControl: 'पानी नियंत्रण',
     autoMode: 'ऑटो',
@@ -441,6 +881,116 @@ const translations: Record<Language, Translations> = {
     minutes: 'मिनट',
     liters: 'लीटर',
     thisWeek: 'इस हफ्ते',
+
+    // Auth
+    welcome: 'स्वागत है',
+    signInDescription: 'अपने खाते में साइन इन करें या नया खाता बनाएं',
+    signIn: 'साइन इन',
+    signUp: 'साइन अप',
+    email: 'ईमेल',
+    password: 'पासवर्ड',
+    confirmPassword: 'पासवर्ड की पुष्टि',
+    createAccount: 'खाता बनाएं',
+    checkEmail: 'अपना ईमेल जांचें',
+    welcomeBack: 'वापस स्वागत है!',
+    accountCreated: 'आपका खाता सफलतापूर्वक बन गया।',
+    invalidEmail: 'कृपया सही ईमेल पता दर्ज करें',
+    passwordMin: 'पासवर्ड कम से कम 6 अक्षर होना चाहिए',
+    passwordMismatch: 'पासवर्ड मेल नहीं खाते',
+    alreadyRegistered: 'यह ईमेल पहले से पंजीकृत है। कृपया साइन इन करें।',
+    verifyEmail: 'साइन इन करने से पहले अपना ईमेल सत्यापित करें।',
+    invalidCredentials: 'गलत ईमेल या पासवर्ड। फिर से कोशिश करें।',
+
+    // Settings
+    account: 'खाता',
+    manageAccount: 'अपनी खाता सेटिंग्स प्रबंधित करें',
+    signedIn: 'साइन इन हैं',
+    signOut: 'साइन आउट',
+    notifications: 'सूचनाएं',
+    configureNotifications: 'सूचना प्राथमिकताएं कॉन्फ़िगर करें',
+    enableNotifications: 'सूचनाएं सक्षम करें',
+    notificationDescription: 'बारिश, सिंचाई और सिस्टम इवेंट के लिए अलर्ट प्राप्त करें',
+    rainThreshold: 'बारिश अलर्ट सीमा',
+    thresholdDescription: 'बारिश की संभावना इस सीमा से अधिक होने पर सूचित करें',
+    preferences: 'प्राथमिकताएं',
+    temperatureUnit: 'तापमान इकाई',
+    celsius: 'सेल्सियस',
+    fahrenheit: 'फारेनहाइट',
+    settingsUpdated: 'सेटिंग्स अपडेट हो गईं',
+    languageUpdated: 'भाषा प्राथमिकता सहेजी गई',
+
+    // Install
+    installApp: 'ऐप इंस्टॉल करें',
+    appInstalled: 'ऐप पहले से इंस्टॉल है!',
+    appInstalledDesc: 'FarmWise आपके डिवाइस पर पहले से इंस्टॉल है। होम स्क्रीन पर देखें।',
+    installDescription: 'त्वरित एक्सेस, ऑफलाइन सपोर्ट और नेटिव अनुभव के लिए ऐप इंस्टॉल करें।',
+    installNow: 'अभी इंस्टॉल करें',
+    installOnIos: 'iOS पर इंस्टॉल करें',
+    installOnAndroid: 'Android पर इंस्टॉल करें',
+    benefits: 'लाभ',
+    quickAccess: 'होम स्क्रीन से त्वरित एक्सेस',
+    worksOffline: 'ऑफलाइन काम करता है - कभी भी खेत डेटा देखें',
+    nativeExperience: 'नेटिव ऐप अनुभव - ब्राउज़र बार नहीं',
+    fasterLoading: 'तेज़ लोडिंग',
+    goToDashboard: 'डैशबोर्ड पर जाएं',
+    openInBrowser: 'ऐप इंस्टॉल करने के लिए Chrome या Safari में खोलें।',
+    tapShare: 'Safari में Share बटन दबाएं',
+    tapAddHome: 'नीचे स्क्रॉल करें और "Add to Home Screen" दबाएं',
+    tapAdd: '"Add" दबाकर पुष्टि करें',
+    tapMenu: 'Chrome में मेनू बटन दबाएं',
+    tapInstall: '"Add to Home screen" या "Install app" दबाएं',
+
+    // Farm/Location
+    addFarm: 'खेत जोड़ें',
+    editLocation: 'स्थान संपादित करें',
+    updateLocation: 'स्थान अपडेट करें',
+    farmName: 'खेत का नाम',
+    address: 'पता',
+    latitude: 'अक्षांश',
+    longitude: 'देशांतर',
+    soilType: 'मिट्टी का प्रकार',
+    detectLocation: 'मेरा स्थान खोजें (GPS)',
+    noFarmsAdded: 'अभी तक कोई खेत नहीं जोड़ा',
+    farmDialogDesc: 'खेत का विवरण दर्ज करें या GPS से स्थान खोजें।',
+    searchAddress: 'गांव, शहर या पता दर्ज करें',
+    selectSoilType: 'मिट्टी का प्रकार चुनें',
+    soilTypeHelp: 'बेहतर फसल सिफारिशों के लिए मिट्टी का प्रकार चुनें',
+    enterCoords: 'स्थान निर्देशांक दर्ज करें या खोजें',
+
+    // Soil Types
+    claySoil: 'चिकनी मिट्टी',
+    sandySoil: 'रेतीली मिट्टी',
+    loamySoil: 'दोमट मिट्टी',
+    siltSoil: 'गाद मिट्टी',
+    peatSoil: 'पीट मिट्टी',
+    chalkySoil: 'चूनेदार मिट्टी',
+    blackSoil: 'काली मिट्टी (रेगूर)',
+    redSoil: 'लाल मिट्टी',
+    alluvialSoil: 'जलोढ़ मिट्टी',
+
+    // Crop Recommendations
+    cropRecommendations: 'फसल सिफारिशें',
+    basedOnSoil: 'आधारित',
+    suitable: 'उपयुक्त',
+    noRecommendations: 'कोई सिफारिश उपलब्ध नहीं',
+    getRecommendations: 'सिफारिशें प्राप्त करें',
+    failedRecommendations: 'सिफारिशें प्राप्त करने में विफल',
+    setSoilType: 'फसल सिफारिशों के लिए मिट्टी का प्रकार सेट करें',
+    retry: 'पुनः प्रयास',
+
+    // AI Insights
+    aiInsights: 'AI अंतर्दृष्टि',
+    irrigationAdvice: 'सिंचाई सलाह',
+    healthAnalysis: 'स्वास्थ्य विश्लेषण',
+    confidenceScore: 'विश्वास',
+    analyzingData: 'आपके खेत डेटा का विश्लेषण हो रहा है...',
+    noDataYet: 'AI अंतर्दृष्टि के लिए सेंसर कनेक्ट करें',
+    refreshAnalysis: 'विश्लेषण ताज़ा करें',
+    factors: 'विचारित कारक',
+    recommendation: 'सिफारिश',
+    optimal: 'इष्टतम',
+    warning: 'चेतावनी',
+    critical: 'गंभीर',
   },
 };
 

@@ -49,6 +49,50 @@ export type Database = {
           },
         ]
       }
+      ai_decisions: {
+        Row: {
+          confidence_score: number | null
+          created_at: string | null
+          decision_type: string
+          farm_id: string | null
+          id: string
+          input_data: Json
+          output_data: Json
+          user_id: string
+          was_followed: boolean | null
+        }
+        Insert: {
+          confidence_score?: number | null
+          created_at?: string | null
+          decision_type: string
+          farm_id?: string | null
+          id?: string
+          input_data?: Json
+          output_data?: Json
+          user_id: string
+          was_followed?: boolean | null
+        }
+        Update: {
+          confidence_score?: number | null
+          created_at?: string | null
+          decision_type?: string
+          farm_id?: string | null
+          id?: string
+          input_data?: Json
+          output_data?: Json
+          user_id?: string
+          was_followed?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_decisions_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       crop_recommendations: {
         Row: {
           created_at: string | null
@@ -85,6 +129,50 @@ export type Database = {
             foreignKeyName: "crop_recommendations_farm_id_fkey"
             columns: ["farm_id"]
             isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      farm_preferences: {
+        Row: {
+          created_at: string | null
+          crop_types: string[] | null
+          farm_id: string | null
+          id: string
+          irrigation_method: string | null
+          preferred_irrigation_time: string | null
+          updated_at: string | null
+          user_id: string
+          water_budget_daily: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          crop_types?: string[] | null
+          farm_id?: string | null
+          id?: string
+          irrigation_method?: string | null
+          preferred_irrigation_time?: string | null
+          updated_at?: string | null
+          user_id: string
+          water_budget_daily?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          crop_types?: string[] | null
+          farm_id?: string | null
+          id?: string
+          irrigation_method?: string | null
+          preferred_irrigation_time?: string | null
+          updated_at?: string | null
+          user_id?: string
+          water_budget_daily?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "farm_preferences_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: true
             referencedRelation: "farms"
             referencedColumns: ["id"]
           },
