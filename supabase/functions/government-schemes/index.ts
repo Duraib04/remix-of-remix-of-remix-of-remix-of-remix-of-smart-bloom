@@ -238,7 +238,7 @@ const GOVERNMENT_SCHEMES: GovernmentScheme[] = [
   }
 ];
 
-serve(async (req) => {
+serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
   }
