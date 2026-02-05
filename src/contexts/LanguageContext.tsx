@@ -215,7 +215,6 @@ interface Translations {
   governmentSchemesFinder: string;
   discoverSchemes: string;
   schemeEligibility: string;
-  benefits: string;
   howToApply: string;
   requiredDocuments: string;
   helpline: string;
@@ -244,11 +243,9 @@ interface Translations {
   searchRadius: string;
   storeType: string;
   distance: string;
-  address: string;
   manager: string;
   contact: string;
   phone: string;
-  email: string;
   openingHours: string;
   weekdays: string;
   weekend: string;
@@ -510,7 +507,6 @@ const translations: Record<Language, Translations> = {
     governmentSchemesFinder: 'Government Agricultural Schemes',
     discoverSchemes: 'Discover and apply for government schemes',
     schemeEligibility: 'Eligibility',
-    benefits: 'Benefits',
     howToApply: 'How to Apply',
     requiredDocuments: 'Required Documents',
     helpline: 'Helpline',
@@ -539,11 +535,9 @@ const translations: Record<Language, Translations> = {
     searchRadius: 'Search Radius',
     storeType: 'Store Type',
     distance: 'Distance',
-    address: 'Address',
     manager: 'Manager',
     contact: 'Contact',
     phone: 'Phone',
-    email: 'Email',
     openingHours: 'Opening Hours',
     weekdays: 'Weekdays',
     weekend: 'Weekend',
@@ -803,7 +797,6 @@ const translations: Record<Language, Translations> = {
     governmentSchemesFinder: 'அரசு வேளாண் திட்டங்கள்',
     discoverSchemes: 'அரசு திட்டங்களைக் கண்டறியு மற்றும் விண்ணப்பி',
     schemeEligibility: 'தகுதி',
-    benefits: 'நன்மைகள்',
     howToApply: 'எப்படி விண்ணப்பிக்க வேண்டும்',
     requiredDocuments: 'தேவையான ஆவணங்கள்',
     helpline: 'உதவி இணை',
@@ -832,11 +825,9 @@ const translations: Record<Language, Translations> = {
     searchRadius: 'தேடல் வட்டம்',
     storeType: 'கடை வகை',
     distance: 'தூரம்',
-    address: 'முகவரி',
     manager: 'மேலாளர்',
     contact: 'தொடர்பு',
     phone: 'தொலைபேசி',
-    email: 'மின்னஞ்சல்',
     openingHours: 'திறக்கும் நேரம்',
     weekdays: 'வாரக்கிழமைகள்',
     weekend: 'வாரவிடுமுறை',
@@ -1067,7 +1058,6 @@ const translations: Record<Language, Translations> = {
     governmentSchemesFinder: 'Government Vivasaya Schemes',
     discoverSchemes: 'Government schemes kandupidi aur apply pannu',
     schemeEligibility: 'Eligibility',
-    benefits: 'Benefits',
     howToApply: 'Eppadi Apply Panndra',
     requiredDocuments: 'Thavainai Documents',
     helpline: 'Help Number',
@@ -1096,11 +1086,9 @@ const translations: Record<Language, Translations> = {
     searchRadius: 'Search Distance',
     storeType: 'Store Type',
     distance: 'Distance',
-    address: 'Address',
     manager: 'Manager',
     contact: 'Contact',
     phone: 'Phone',
-    email: 'Email',
     openingHours: 'Open Timing',
     weekdays: 'Weekdays',
     weekend: 'Weekend',
@@ -1331,7 +1319,6 @@ const translations: Record<Language, Translations> = {
     governmentSchemesFinder: 'सरकारी कृषि योजनाएं',
     discoverSchemes: 'सरकारी योजनाओं की खोज करें और आवेदन करें',
     schemeEligibility: 'पात्रता',
-    benefits: 'लाभ',
     howToApply: 'कैसे आवेदन करें',
     requiredDocuments: 'आवश्यक दस्तावेज',
     helpline: 'हेल्पलाइन',
@@ -1360,11 +1347,9 @@ const translations: Record<Language, Translations> = {
     searchRadius: 'खोज दूरी',
     storeType: 'स्टोर प्रकार',
     distance: 'दूरी',
-    address: 'पता',
     manager: 'प्रबंधक',
     contact: 'संपर्क',
     phone: 'फ़ोन',
-    email: 'ईमेल',
     openingHours: 'खुलने का समय',
     weekdays: 'सप्ताह के दिन',
     weekend: 'सप्ताहांत',
