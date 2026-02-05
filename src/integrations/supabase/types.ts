@@ -14,7 +14,162 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      activity_logs: {
+        Row: {
+          created_at: string
+          event_type: string
+          farm_id: string | null
+          id: string
+          message: string
+          severity: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          farm_id?: string | null
+          id?: string
+          message: string
+          severity?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          farm_id?: string | null
+          id?: string
+          message?: string
+          severity?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_logs_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      farms: {
+        Row: {
+          address: string | null
+          created_at: string
+          id: string
+          latitude: number
+          longitude: number
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          id?: string
+          latitude: number
+          longitude: number
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          id?: string
+          latitude?: number
+          longitude?: number
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      irrigation_logs: {
+        Row: {
+          action: string
+          created_at: string
+          duration_minutes: number | null
+          farm_id: string | null
+          id: string
+          triggered_by: string | null
+          water_used_liters: number | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          duration_minutes?: number | null
+          farm_id?: string | null
+          id?: string
+          triggered_by?: string | null
+          water_used_liters?: number | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          duration_minutes?: number | null
+          farm_id?: string | null
+          id?: string
+          triggered_by?: string | null
+          water_used_liters?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "irrigation_logs_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sensor_readings: {
+        Row: {
+          created_at: string
+          farm_id: string | null
+          humidity: number | null
+          id: string
+          nitrogen: number | null
+          ph_level: number | null
+          phosphorus: number | null
+          potassium: number | null
+          pump_status: boolean | null
+          soil_moisture: number | null
+          temperature: number | null
+          water_level: number | null
+        }
+        Insert: {
+          created_at?: string
+          farm_id?: string | null
+          humidity?: number | null
+          id?: string
+          nitrogen?: number | null
+          ph_level?: number | null
+          phosphorus?: number | null
+          potassium?: number | null
+          pump_status?: boolean | null
+          soil_moisture?: number | null
+          temperature?: number | null
+          water_level?: number | null
+        }
+        Update: {
+          created_at?: string
+          farm_id?: string | null
+          humidity?: number | null
+          id?: string
+          nitrogen?: number | null
+          ph_level?: number | null
+          phosphorus?: number | null
+          potassium?: number | null
+          pump_status?: boolean | null
+          soil_moisture?: number | null
+          temperature?: number | null
+          water_level?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sensor_readings_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

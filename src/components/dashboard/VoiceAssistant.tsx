@@ -13,7 +13,11 @@ interface Message {
   content: string;
 }
 
-export function VoiceAssistant() {
+ interface VoiceAssistantProps {
+   farmId?: string | null;
+ }
+ 
+ export function VoiceAssistant({ farmId }: VoiceAssistantProps) {
   const { t, language } = useLanguage();
   const [isListening, setIsListening] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -106,7 +110,7 @@ export function VoiceAssistant() {
 
     try {
       const { data, error } = await supabase.functions.invoke("farm-assistant", {
-        body: { message: text, language },
+         body: { message: text, language, farmId },
       });
 
       if (error) throw error;
