@@ -27,7 +27,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
  }
  
  export function CropRecommendations({ farmId, soilType, weather, className }: CropRecommendationsProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
    const [recommendations, setRecommendations] = useState<CropRecommendation[]>([]);
    const [isLoading, setIsLoading] = useState(false);
    const [error, setError] = useState<string | null>(null);
@@ -44,6 +44,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
            farmId,
            soilType,
            weather,
+            language,
          },
        });
  
@@ -64,7 +65,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
      if (farmId && soilType) {
        fetchRecommendations();
      }
-   }, [farmId, soilType]);
+    }, [farmId, soilType, language]);
  
    const getScoreColor = (score: number) => {
      if (score >= 80) return "text-success";
