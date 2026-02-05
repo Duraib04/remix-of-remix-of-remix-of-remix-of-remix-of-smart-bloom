@@ -1,337 +1,278 @@
 
 
-# Implementation Plan: Complete Multilingual Support and Advanced AI Algorithms
+# Implementation Plan: Image Scan Feature with AI Vision Analysis
 
 ## Overview
 
-This plan enhances your smart irrigation app with two major improvements:
-
-1. **Complete Multilingual Support** - All pages, forms, buttons, and components will switch language properly when you change the language setting
-2. **Advanced AI Thinking Algorithm** - Implement sophisticated AI decision-making for irrigation, crop analysis, and predictive recommendations
+This plan adds a powerful **Scan Feature** that allows farmers to take photos of crops, pests, diseases, or plants and get AI-powered identification and advice in their chosen language. The feature works like Google Lens but is tailored specifically for farming needs.
 
 ---
 
-## 1. Complete Language Support
+## How It Works
 
-### Current State
-The app has a translation system (`LanguageContext.tsx`) with translations for 4 languages (English, Tamil, Tanglish, Hindi), but several pages and components have hardcoded English text that doesn't translate.
+```text
++------------------+     +------------------+     +------------------+
+|  User Captures   | --> |  Upload to       | --> |  AI Vision       |
+|  Photo (Camera   |     |  Supabase        |     |  Analysis        |
+|  or Gallery)     |     |  Storage         |     |  (Gemini Pro)    |
++------------------+     +------------------+     +------------------+
+                                                          |
+                                                          v
+                         +------------------+     +------------------+
+                         |  Display Results | <-- |  Multilingual    |
+                         |  with Actions    |     |  Response        |
+                         +------------------+     +------------------+
+```
 
-### Pages Needing Translation Updates
+### User Flow
 
-#### Auth Page (`src/pages/Auth.tsx`)
-Currently hardcoded text:
-- "Welcome", "Sign in to your account or create a new one"
-- "Sign In", "Sign Up"
-- "Email", "Password", "Confirm Password"
-- "Create Account"
-- Error messages
+1. User taps the **Scan** button (camera icon) on the dashboard
+2. Choose to take a new photo or select from gallery
+3. Photo uploads to secure storage
+4. AI analyzes the image for:
+   - Plant/crop identification
+   - Disease detection
+   - Pest identification
+   - Nutrient deficiency signs
+   - General farming queries
+5. Results appear in the user's selected language (English, Tamil, Tanglish, Hindi)
+6. AI provides actionable advice based on findings
 
-#### Settings Page (`src/pages/Settings.tsx`)
-Currently hardcoded text:
-- "Account", "Manage your account settings"
-- "Signed in", "Sign Out"
-- "Notifications", "Configure notification preferences"
-- "Enable Notifications", alert descriptions
-- "Rain Alert Threshold"
-- "Preferences", "Temperature Unit", "Celsius/Fahrenheit"
+---
 
-#### Install Page (`src/pages/Install.tsx`)
-Currently hardcoded text:
-- "Install App"
-- "App Already Installed!", "FarmWise is already installed..."
-- "Install FarmWise", installation instructions
-- "Benefits" section
+## Key Features
 
-#### Location Selector (`src/components/dashboard/LocationSelector.tsx`)
-Currently hardcoded text:
-- "Add Farm", "Edit Location", "Update Location"
-- "Farm Name", "Address", "Latitude", "Longitude"
-- "Soil Type" with all soil type labels
-- "Detect My Location (GPS)"
+### Camera Integration
+- Access device camera directly from the app
+- Front/rear camera switching
+- Image preview before analysis
+- Gallery upload option for existing photos
 
-#### Crop Recommendations (`src/components/dashboard/CropRecommendations.tsx`)
-Currently hardcoded text:
-- "Crop Recommendations"
-- "Based on {soilType} soil"
-- "suitable", season badges
-- Error messages
+### AI Vision Analysis
+- Uses Google Gemini Pro Vision model (already available via Lovable AI)
+- No additional API keys required
+- Specialized prompts for farming context
+- Multi-language response support
 
-### New Translations to Add
+### Scan Types Supported
+- **Crop Health**: Identify yellowing, wilting, spots
+- **Pest Detection**: Identify insects and pests
+- **Disease Analysis**: Spot fungal, bacterial, viral infections
+- **Plant ID**: Identify unknown plants/weeds
+- **Soil Analysis**: Basic visual soil assessment
 
+---
+
+## New Components
+
+### 1. ScanButton Component
+A floating action button next to the voice assistant that opens the scanner interface.
+
+### 2. ScannerModal Component
+Full-screen modal with:
+- Camera viewfinder or file picker
+- Capture/upload buttons
+- Analysis progress indicator
+- Results display area
+
+### 3. ScanResultCard Component
+Displays AI analysis results:
+- Identified item with confidence
+- Problem detection (if any)
+- Recommended actions
+- Related tips
+
+---
+
+## Technical Implementation
+
+### Files to Create
+
+| File | Purpose |
+|------|---------|
+| `src/components/dashboard/ScanButton.tsx` | Floating scan button |
+| `src/components/dashboard/ScannerModal.tsx` | Camera/upload interface |
+| `src/components/dashboard/ScanResultCard.tsx` | Results display |
+| `supabase/functions/image-analyzer/index.ts` | AI vision analysis |
+| `src/hooks/useImageScanner.ts` | Camera and upload logic |
+
+### Files to Modify
+
+| File | Changes |
+|------|---------|
+| `src/contexts/LanguageContext.tsx` | Add scan-related translations |
+| `src/pages/Index.tsx` | Add ScanButton to dashboard |
+
+### Database Changes
+
+```sql
+-- Table to store scan history
+CREATE TABLE scan_history (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  farm_id UUID REFERENCES farms(id),
+  user_id UUID REFERENCES auth.users(id),
+  image_url TEXT NOT NULL,
+  scan_type TEXT, -- 'crop', 'pest', 'disease', 'plant', 'soil'
+  result JSONB NOT NULL,
+  language TEXT DEFAULT 'en',
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- RLS policies for user access
+ALTER TABLE scan_history ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view own scans"
+  ON scan_history FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert own scans"
+  ON scan_history FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+```
+
+### Storage Setup
+
+```sql
+-- Create storage bucket for scan images
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('scan-images', 'scan-images', true);
+
+-- Allow authenticated users to upload
+CREATE POLICY "Users can upload scan images"
+  ON storage.objects FOR INSERT
+  WITH CHECK (bucket_id = 'scan-images' AND auth.role() = 'authenticated');
+
+CREATE POLICY "Anyone can view scan images"
+  ON storage.objects FOR SELECT
+  USING (bucket_id = 'scan-images');
+```
+
+---
+
+## Edge Function: image-analyzer
+
+The core AI analysis function that processes uploaded images.
+
+### Input
 ```typescript
-// Additional translations for all languages
 {
-  // Auth
-  welcome: string;
-  signInDescription: string;
-  signIn: string;
-  signUp: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  createAccount: string;
-  checkEmail: string;
-  welcomeBack: string;
-  accountCreated: string;
-  
-  // Settings
-  account: string;
-  manageAccount: string;
-  signedIn: string;
-  signOut: string;
-  notifications: string;
-  configureNotifications: string;
-  enableNotifications: string;
-  notificationDescription: string;
-  rainThreshold: string;
-  thresholdDescription: string;
-  preferences: string;
-  temperatureUnit: string;
-  celsius: string;
-  fahrenheit: string;
-  
-  // Install
-  installApp: string;
-  appInstalled: string;
-  installDescription: string;
-  installNow: string;
-  installOnIos: string;
-  installOnAndroid: string;
-  benefits: string;
-  quickAccess: string;
-  worksOffline: string;
-  nativeExperience: string;
-  fasterLoading: string;
-  
-  // Location/Farm
-  addFarm: string;
-  editLocation: string;
-  updateLocation: string;
-  farmName: string;
-  address: string;
-  latitude: string;
-  longitude: string;
-  soilType: string;
-  detectLocation: string;
-  noFarmsAdded: string;
-  
-  // Soil Types
-  claySoil: string;
-  sandySoil: string;
-  loamySoil: string;
-  siltSoil: string;
-  peatSoil: string;
-  chalkySoil: string;
-  blackSoil: string;
-  redSoil: string;
-  alluvialSoil: string;
-  
-  // Crop Recommendations
-  cropRecommendations: string;
-  basedOnSoil: string;
-  suitable: string;
-  noRecommendations: string;
-  getRecommendations: string;
-  failedRecommendations: string;
+  imageUrl: string;      // Supabase storage URL
+  scanType?: string;     // Optional: 'crop', 'pest', 'disease', etc.
+  language: string;      // 'en', 'ta', 'tanglish', 'hi'
+  farmContext?: {        // Optional farm context
+    soilType?: string;
+    location?: string;
+  }
+}
+```
+
+### Processing
+1. Receive image URL and language preference
+2. Build specialized farming-context prompt
+3. Call Gemini Pro Vision via Lovable AI Gateway
+4. Parse and structure the response
+5. Return translated, actionable results
+
+### Output
+```typescript
+{
+  identified: {
+    name: string;           // "Tomato Leaf Blight"
+    confidence: number;     // 0.85
+    category: string;       // "disease"
+  };
+  analysis: string;         // Detailed description
+  severity?: string;        // "moderate"
+  recommendations: string[];// Action items
+  relatedTips: string[];    // Additional advice
 }
 ```
 
 ---
 
-## 2. Advanced AI Thinking Algorithm
+## New Translations
 
-### Current State
-The app has basic AI suggestions through the `farm-assistant` edge function, but it uses simple rule-based logic.
+Add to all 4 languages (English, Tamil, Tanglish, Hindi):
 
-### New AI Features
-
-#### A. Smart Irrigation Decision Engine
-Create an intelligent algorithm that considers multiple factors:
-
-```text
-Input Factors:
-- Current soil moisture (from ESP32 sensors)
-- Temperature and humidity
-- Weather forecast (next 24-72 hours)
-- Rain probability
-- Time of day (avoid irrigation at noon)
-- Historical water usage patterns
-- Soil type water retention properties
-- Crop water requirements
-- Evapotranspiration rate calculation
-
-Output:
-- Should irrigate now (yes/no with confidence %)
-- Optimal irrigation time window
-- Recommended duration
-- Water volume estimate
-- Reasoning explanation
-```
-
-#### B. Predictive Crop Health Analyzer
-Implement AI-powered crop health prediction:
-
-```text
-Factors Analyzed:
-- Soil NPK levels (nitrogen, phosphorus, potassium)
-- pH level trends
-- Temperature stress indicators
-- Moisture consistency
-- Historical sensor patterns
-
-Outputs:
-- Health score (0-100)
-- Risk alerts (drought stress, nutrient deficiency)
-- Recommended actions
-- Yield prediction estimate
-```
-
-#### C. Enhanced Crop Recommendations
-Upgrade the recommendation engine with AI reasoning:
-
-```text
-Enhanced Algorithm:
-- Current weather impact analysis
-- Seasonal suitability scoring
-- Soil nutrient matching
-- Water availability consideration
-- Market timing suggestions
-- Rotation recommendations
-- Disease risk assessment
-```
-
-### New Edge Functions
-
-#### `smart-irrigation-advisor` Function
 ```typescript
-// Complex decision algorithm
-- Fetch latest sensor data
-- Fetch weather forecast
-- Calculate evapotranspiration (ET)
-- Analyze soil moisture trends
-- Consider crop growth stage
-- Apply machine learning weights
-- Generate multi-factor recommendation
+// Scan feature translations
+scanCrop: string;           // "Scan Crop"
+takePhoto: string;          // "Take Photo"
+uploadPhoto: string;        // "Upload Photo"
+analyzing: string;          // "Analyzing..."
+scanResult: string;         // "Scan Result"
+identified: string;         // "Identified"
+problemDetected: string;    // "Problem Detected"
+recommendations: string;    // "Recommendations"
+noIssuesFound: string;      // "No Issues Found"
+scanAgain: string;          // "Scan Again"
+saveScan: string;           // "Save to History"
+scanHistory: string;        // "Scan History"
+cropHealth: string;         // "Crop Health"
+pestDetection: string;      // "Pest Detection"
+diseaseAnalysis: string;    // "Disease Analysis"
+plantId: string;            // "Plant Identification"
+soilAnalysis: string;       // "Soil Analysis"
+selectScanType: string;     // "What would you like to scan?"
+cameraPermission: string;   // "Camera permission needed"
 ```
 
-#### `crop-health-analyzer` Function
-```typescript
-// Health analysis algorithm
-- Aggregate sensor readings
-- Calculate nutrient balance
-- Detect anomaly patterns
-- Generate health report
-- Predict future conditions
-```
+---
 
-### Database Updates
+## UI Design
 
-```sql
--- Store AI decisions for learning
-CREATE TABLE ai_decisions (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  farm_id UUID REFERENCES farms(id),
-  decision_type TEXT NOT NULL, -- 'irrigation', 'health', 'recommendation'
-  input_data JSONB NOT NULL,
-  output_data JSONB NOT NULL,
-  confidence_score INTEGER,
-  was_followed BOOLEAN,
-  created_at TIMESTAMPTZ DEFAULT now()
-);
+### Scan Button
+- Positioned bottom-left, opposite to voice assistant
+- Camera icon with subtle pulse animation
+- Matches app theme colors
 
--- Store learned preferences
-CREATE TABLE farm_preferences (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  farm_id UUID REFERENCES farms(id) UNIQUE,
-  preferred_irrigation_time TEXT,
-  water_budget_daily FLOAT,
-  crop_types TEXT[],
-  updated_at TIMESTAMPTZ DEFAULT now()
-);
-```
+### Scanner Modal
+- Full-screen on mobile for better camera access
+- Dark overlay with centered viewfinder
+- Clear capture and cancel buttons
+- Scan type selector at top
 
-### New Dashboard Components
-
-#### AI Insights Panel
-A new component showing:
-- Current AI recommendation status
-- Decision confidence visualization
-- Factor breakdown chart
-- Action history
-
-#### Predictive Charts
-- 7-day moisture prediction curve
-- Expected rainfall overlay
-- Irrigation schedule forecast
+### Results Display
+- Card-based layout matching existing design
+- Color-coded severity indicators
+- Expandable recommendation sections
+- Share/save actions
 
 ---
 
 ## Implementation Order
 
-### Phase 1: Complete Translations
-1. Extend LanguageContext.tsx with 80+ new translation keys
-2. Update Auth.tsx - use translations for all text
-3. Update Settings.tsx - translate all labels and descriptions
-4. Update Install.tsx - translate installation instructions
-5. Update LocationSelector.tsx - translate form fields and soil types
-6. Update CropRecommendations.tsx - translate recommendations
+### Step 1: Database and Storage Setup
+- Create `scan_history` table with RLS
+- Configure `scan-images` storage bucket
 
-### Phase 2: Enhanced AI Edge Functions
-1. Create `smart-irrigation-advisor` edge function
-2. Create `crop-health-analyzer` edge function
-3. Upgrade `crop-recommendations` with advanced algorithm
-4. Create database tables for AI learning
+### Step 2: Create Edge Function
+- Build `image-analyzer` function
+- Configure AI vision prompts for all languages
+- Test with sample images
 
-### Phase 3: Dashboard AI Components
-1. Create AIInsightsPanel component
-2. Add predictive visualization charts
-3. Integrate AI advisors into main dashboard
-4. Add AI thinking indicators and explanations
+### Step 3: Add Translations
+- Extend LanguageContext with all scan translations
+- Ensure all 4 languages are covered
 
----
+### Step 4: Build UI Components
+- Create `ScanButton.tsx`
+- Create `ScannerModal.tsx` with camera integration
+- Create `ScanResultCard.tsx`
+- Create `useImageScanner.ts` hook
 
-## Technical Details
-
-### Files to Create
-```
-supabase/functions/smart-irrigation-advisor/index.ts
-supabase/functions/crop-health-analyzer/index.ts
-src/components/dashboard/AIInsightsPanel.tsx
-src/components/dashboard/PredictiveChart.tsx
-src/hooks/useAIAdvisor.ts
-```
-
-### Files to Modify
-```
-src/contexts/LanguageContext.tsx - Add 80+ translation keys for all 4 languages
-src/pages/Auth.tsx - Replace hardcoded text with translations
-src/pages/Settings.tsx - Replace hardcoded text with translations
-src/pages/Install.tsx - Replace hardcoded text with translations
-src/components/dashboard/LocationSelector.tsx - Translate form fields
-src/components/dashboard/CropRecommendations.tsx - Translate content
-src/pages/Index.tsx - Add new AI components
-supabase/functions/crop-recommendations/index.ts - Enhanced algorithm
-supabase/functions/farm-assistant/index.ts - AI thinking mode
-```
-
-### New Database Migration
-```sql
--- AI learning tables
-CREATE TABLE ai_decisions (...)
-CREATE TABLE farm_preferences (...)
-
--- Enable RLS
-ALTER TABLE ai_decisions ENABLE ROW LEVEL SECURITY;
-ALTER TABLE farm_preferences ENABLE ROW LEVEL SECURITY;
-```
+### Step 5: Integration
+- Add ScanButton to Index.tsx
+- Connect all components
+- Test end-to-end flow
 
 ---
 
-## Expected Outcomes
+## Benefits
 
-After implementation:
-- **Language**: Switch between English, Tamil, Tanglish, Hindi and ALL text updates including forms, buttons, and error messages
-- **AI**: Get intelligent, multi-factor irrigation recommendations with confidence scores
-- **Predictions**: See forecasted soil moisture and irrigation schedules
-- **Learning**: The system remembers your preferences and improves over time
+- **No External API Keys**: Uses Lovable AI's Gemini Pro Vision
+- **Works Offline-First**: Camera works without internet, uploads when connected
+- **Multilingual**: Results in farmer's preferred language
+- **Farming-Focused**: AI prompts optimized for agricultural context
+- **History Tracking**: Save and review past scans
 
