@@ -12,7 +12,9 @@
  import { LocationSelector } from "@/components/dashboard/LocationSelector";
 import { CropRecommendations } from "@/components/dashboard/CropRecommendations";
 import { AIInsightsPanel } from "@/components/dashboard/AIInsightsPanel";
- import { useLanguage } from "@/contexts/LanguageContext";
+import { CooperativeStoresLocator } from "@/components/dashboard/CooperativeStoresLocator";
+import { GovernmentSchemesFinder } from "@/components/dashboard/GovernmentSchemesFinder";
+import { useLanguage } from "@/contexts/LanguageContext";
  import { useWeather } from "@/hooks/useWeather";
  import { useRainAlert } from "@/hooks/useRainAlert";
  import { useFarm } from "@/hooks/useFarm";
@@ -225,6 +227,16 @@ import { AIInsightsPanel } from "@/components/dashboard/AIInsightsPanel";
              />
            </section>
          )}
+
+         {/* Cooperative Stores Locator */}
+         <section className="animate-fade-in" style={{ animationDelay: "0.08s" }}>
+           <CooperativeStoresLocator />
+         </section>
+
+         {/* Government Schemes Finder */}
+         <section className="animate-fade-in" style={{ animationDelay: "0.09s" }}>
+           <GovernmentSchemesFinder />
+         </section>
  
          {/* Gauges Section */}
          <section className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in" style={{ animationDelay: "0.1s" }}>

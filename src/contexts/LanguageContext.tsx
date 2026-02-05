@@ -209,6 +209,75 @@ interface Translations {
   optimal: string;
   warning: string;
   critical: string;
+
+  // Government Schemes
+  governmentSchemes: string;
+  governmentSchemesFinder: string;
+  discoverSchemes: string;
+  schemeEligibility: string;
+  benefits: string;
+  howToApply: string;
+  requiredDocuments: string;
+  helpline: string;
+  applyOnline: string;
+  selectState: string;
+  filterByCategory: string;
+  foundSchemes: string;
+  noSchemesFound: string;
+
+  // Subsidy Schemes
+  subsidySchemes: string;
+  pmKisan: string;
+  rythuBharosa: string;
+  dbt: string;
+  pmksy: string;
+
+  // Insurance Schemes
+  insuranceSchemes: string;
+  pmFasalBima: string;
+  weatherBasedInsurance: string;
+
+  // Cooperative Stores
+  cooperativeStores: string;
+  cooperativeStoresLocator: string;
+  nearbyStores: string;
+  searchRadius: string;
+  storeType: string;
+  distance: string;
+  address: string;
+  manager: string;
+  contact: string;
+  phone: string;
+  email: string;
+  openingHours: string;
+  weekdays: string;
+  weekend: string;
+  availableProducts: string;
+  subsidies: string;
+  getDirections: string;
+  callStore: string;
+  noStoresFound: string;
+
+  // Eligibility
+  landHolding: string;
+  annualIncome: string;
+  age: string;
+  eligibilityDetails: string;
+
+  // Application Steps
+  step: string;
+  applicationProcess: string;
+  documents: string;
+  website: string;
+
+  // Filter Options
+  all: string;
+  subsidy: string;
+  loan: string;
+  insurance: string;
+  infrastructure: string;
+  training: string;
+  marketing: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -406,6 +475,75 @@ const translations: Record<Language, Translations> = {
     optimal: 'Optimal',
     warning: 'Warning',
     critical: 'Critical',
+
+    // Government Schemes
+    governmentSchemes: 'Government Schemes',
+    governmentSchemesFinder: 'Government Agricultural Schemes',
+    discoverSchemes: 'Discover and apply for government schemes',
+    schemeEligibility: 'Eligibility',
+    benefits: 'Benefits',
+    howToApply: 'How to Apply',
+    requiredDocuments: 'Required Documents',
+    helpline: 'Helpline',
+    applyOnline: 'Apply Online',
+    selectState: 'Select State',
+    filterByCategory: 'Filter by Category',
+    foundSchemes: 'Found',
+    noSchemesFound: 'No schemes found',
+
+    // Subsidy Schemes
+    subsidySchemes: 'Subsidy Schemes',
+    pmKisan: 'PM-KISAN',
+    rythuBharosa: 'Rythu Bharosa',
+    dbt: 'Direct Benefit Transfer',
+    pmksy: 'PM Krishi Sinchayee Yojana',
+
+    // Insurance Schemes
+    insuranceSchemes: 'Insurance Schemes',
+    pmFasalBima: 'PM Fasal Bima',
+    weatherBasedInsurance: 'Weather-based Insurance',
+
+    // Cooperative Stores
+    cooperativeStores: 'Cooperative Stores',
+    cooperativeStoresLocator: 'Cooperative Stores Locator',
+    nearbyStores: 'Nearby Stores',
+    searchRadius: 'Search Radius',
+    storeType: 'Store Type',
+    distance: 'Distance',
+    address: 'Address',
+    manager: 'Manager',
+    contact: 'Contact',
+    phone: 'Phone',
+    email: 'Email',
+    openingHours: 'Opening Hours',
+    weekdays: 'Weekdays',
+    weekend: 'Weekend',
+    availableProducts: 'Available Products',
+    subsidies: 'Subsidies',
+    getDirections: 'Get Directions',
+    callStore: 'Call Store',
+    noStoresFound: 'No stores found',
+
+    // Eligibility
+    landHolding: 'Land Holding',
+    annualIncome: 'Annual Income',
+    age: 'Age',
+    eligibilityDetails: 'Eligibility Details',
+
+    // Application Steps
+    step: 'Step',
+    applicationProcess: 'Application Process',
+    documents: 'Documents',
+    website: 'Website',
+
+    // Filter Options
+    all: 'All',
+    subsidy: 'Subsidy',
+    loan: 'Loan',
+    insurance: 'Insurance',
+    infrastructure: 'Infrastructure',
+    training: 'Training',
+    marketing: 'Marketing',
   },
   ta: {
     appName: 'அக்வாஸ்மார்ட்',
@@ -601,6 +739,75 @@ const translations: Record<Language, Translations> = {
     optimal: 'சிறந்தது',
     warning: 'எச்சரிக்கை',
     critical: 'முக்கியமானது',
+
+    // Government Schemes
+    governmentSchemes: 'அரசு திட்டங்கள்',
+    governmentSchemesFinder: 'அரசு வேளாண் திட்டங்கள்',
+    discoverSchemes: 'அரசு திட்டங்களைக் கண்டறியு மற்றும் விண்ணப்பி',
+    schemeEligibility: 'தகுதி',
+    benefits: 'நன்மைகள்',
+    howToApply: 'எப்படி விண்ணப்பிக்க வேண்டும்',
+    requiredDocuments: 'தேவையான ஆவணங்கள்',
+    helpline: 'உதவி இணை',
+    applyOnline: 'ஆன்லைনில் விண்ணப்பி',
+    selectState: 'மாநிலத்தைத் தேர்ந்தெடு',
+    filterByCategory: 'வகையினால் வடிகட்ட',
+    foundSchemes: 'கண்டுபிடிக்கப்பட்டது',
+    noSchemesFound: 'திட்டங்கள் கிடைக்கவில்லை',
+
+    // Subsidy Schemes
+    subsidySchemes: 'மானிய திட்டங்கள்',
+    pmKisan: 'பி.எம். கிசான்',
+    rythuBharosa: 'ரைதூ பரோசா',
+    dbt: 'நேரடி நன்மைகள் பரிமாற்றம்',
+    pmksy: 'பி.எம். கிருஷி சிஞ்சயே யோஜனா',
+
+    // Insurance Schemes
+    insuranceSchemes: 'இன்சொரன்ஸ் திட்டங்கள்',
+    pmFasalBima: 'பி.எம் பசல் பீமா',
+    weatherBasedInsurance: 'வானிலை அடிப்படையிலான பீமா',
+
+    // Cooperative Stores
+    cooperativeStores: 'கூட்டுறவு கடைகள்',
+    cooperativeStoresLocator: 'கூட்டுறவு கடைகள் இருப்பிடவி',
+    nearbyStores: 'அقریbovely கடைகள்',
+    searchRadius: 'தேடல் வட்டம்',
+    storeType: 'கடை வகை',
+    distance: 'தூரம்',
+    address: 'முகவரி',
+    manager: 'மேலாளர்',
+    contact: 'தொடர்பு',
+    phone: 'தொலைபேசி',
+    email: 'மின்னஞ்சல்',
+    openingHours: 'திறக்கும் நேரம்',
+    weekdays: 'வாரக்கிழமைகள்',
+    weekend: 'வாரவிடுமுறை',
+    availableProducts: 'उपलब्ध उत्पाद',
+    subsidies: 'மானியங்கள்',
+    getDirections: 'திசைவழி பெறு',
+    callStore: 'கடையை அழையு',
+    noStoresFound: 'கடைகள் கிடைக்கவில்லை',
+
+    // Eligibility
+    landHolding: 'நிலம் அளவு',
+    annualIncome: 'வருடாந்திர வருமானம்',
+    age: 'வயது',
+    eligibilityDetails: 'தகுதி விவரங்கள்',
+
+    // Application Steps
+    step: 'படி',
+    applicationProcess: 'விண்ணப்ப செயல்முறை',
+    documents: 'ஆவணங்கள்',
+    website: 'இணையதளம்',
+
+    // Filter Options
+    all: 'அனைத்து',
+    subsidy: 'மானியம்',
+    loan: 'கடன்',
+    insurance: 'பீமா',
+    infrastructure: 'உள்கட்டமைப்பு',
+    training: 'பயிற்சி',
+    marketing: 'சந்தைப்படுத்தல்',
   },
   tanglish: {
     appName: 'AquaSmart',
@@ -796,6 +1003,75 @@ const translations: Record<Language, Translations> = {
     optimal: 'Optimal',
     warning: 'Warning',
     critical: 'Critical',
+
+    // Government Schemes
+    governmentSchemes: 'Government Schemes',
+    governmentSchemesFinder: 'Government Vivasaya Schemes',
+    discoverSchemes: 'Government schemes kandupidi aur apply pannu',
+    schemeEligibility: 'Eligibility',
+    benefits: 'Benefits',
+    howToApply: 'Eppadi Apply Panndra',
+    requiredDocuments: 'Thavainai Documents',
+    helpline: 'Help Number',
+    applyOnline: 'Online Apply Pannu',
+    selectState: 'State Select Pannu',
+    filterByCategory: 'Category-la Filter Pannu',
+    foundSchemes: 'Kandupittathu',
+    noSchemesFound: 'Schemes Kandupala',
+
+    // Subsidy Schemes
+    subsidySchemes: 'Subsidy Schemes',
+    pmKisan: 'PM-KISAN',
+    rythuBharosa: 'Ryithu Bharosa',
+    dbt: 'Direct Benefit Transfer',
+    pmksy: 'PM Krishi Sinchayee Yojana',
+
+    // Insurance Schemes
+    insuranceSchemes: 'Insurance Schemes',
+    pmFasalBima: 'PM Fasal Bima',
+    weatherBasedInsurance: 'Vanilai-based Insurance',
+
+    // Cooperative Stores
+    cooperativeStores: 'Cooperative Stores',
+    cooperativeStoresLocator: 'Cooperative Stores Kandupidi',
+    nearbyStores: 'Nearby Stores',
+    searchRadius: 'Search Distance',
+    storeType: 'Store Type',
+    distance: 'Distance',
+    address: 'Address',
+    manager: 'Manager',
+    contact: 'Contact',
+    phone: 'Phone',
+    email: 'Email',
+    openingHours: 'Open Timing',
+    weekdays: 'Weekdays',
+    weekend: 'Weekend',
+    availableProducts: 'Available Products',
+    subsidies: 'Subsidies',
+    getDirections: 'Direction Edu',
+    callStore: 'Store Call Pannu',
+    noStoresFound: 'Stores Kandupala',
+
+    // Eligibility
+    landHolding: 'Nilam Vazhi',
+    annualIncome: 'Varusanda Varamai',
+    age: 'Vayasu',
+    eligibilityDetails: 'Eligibility Details',
+
+    // Application Steps
+    step: 'Kadam',
+    applicationProcess: 'Apply Process',
+    documents: 'Documents',
+    website: 'Website',
+
+    // Filter Options
+    all: 'Ellarum',
+    subsidy: 'Subsidy',
+    loan: 'Loan',
+    insurance: 'Insurance',
+    infrastructure: 'Infrastructure',
+    training: 'Training',
+    marketing: 'Marketing',
   },
   hi: {
     appName: 'एक्वास्मार्ट',
@@ -991,6 +1267,75 @@ const translations: Record<Language, Translations> = {
     optimal: 'इष्टतम',
     warning: 'चेतावनी',
     critical: 'गंभीर',
+
+    // Government Schemes
+    governmentSchemes: 'सरकारी योजनाएं',
+    governmentSchemesFinder: 'सरकारी कृषि योजनाएं',
+    discoverSchemes: 'सरकारी योजनाओं की खोज करें और आवेदन करें',
+    schemeEligibility: 'पात्रता',
+    benefits: 'लाभ',
+    howToApply: 'कैसे आवेदन करें',
+    requiredDocuments: 'आवश्यक दस्तावेज',
+    helpline: 'हेल्पलाइन',
+    applyOnline: 'ऑनलाइन आवेदन करें',
+    selectState: 'राज्य चुनें',
+    filterByCategory: 'श्रेणी के अनुसार फ़िल्टर करें',
+    foundSchemes: 'पाई गईं',
+    noSchemesFound: 'कोई योजना नहीं मिली',
+
+    // Subsidy Schemes
+    subsidySchemes: 'अनुदान योजनाएं',
+    pmKisan: 'पीएम-किसान',
+    rythuBharosa: 'रैथु भरोसा',
+    dbt: 'प्रत्यक्ष लाभ अंतरण',
+    pmksy: 'पीएम कृषि सिंचाई योजना',
+
+    // Insurance Schemes
+    insuranceSchemes: 'बीमा योजनाएं',
+    pmFasalBima: 'पीएम फसल बीमा',
+    weatherBasedInsurance: 'मौसम आधारित बीमा',
+
+    // Cooperative Stores
+    cooperativeStores: 'सहकारी स्टोर',
+    cooperativeStoresLocator: 'सहकारी स्टोर खोजें',
+    nearbyStores: 'पास के स्टोर',
+    searchRadius: 'खोज दूरी',
+    storeType: 'स्टोर प्रकार',
+    distance: 'दूरी',
+    address: 'पता',
+    manager: 'प्रबंधक',
+    contact: 'संपर्क',
+    phone: 'फ़ोन',
+    email: 'ईमेल',
+    openingHours: 'खुलने का समय',
+    weekdays: 'सप्ताह के दिन',
+    weekend: 'सप्ताहांत',
+    availableProducts: 'उपलब्ध उत्पाद',
+    subsidies: 'अनुदान',
+    getDirections: 'दिशानिर्देश प्राप्त करें',
+    callStore: 'स्टोर को कॉल करें',
+    noStoresFound: 'कोई स्टोर नहीं मिला',
+
+    // Eligibility
+    landHolding: 'भूमि धारण',
+    annualIncome: 'वार्षिक आय',
+    age: 'आयु',
+    eligibilityDetails: 'पात्रता विवरण',
+
+    // Application Steps
+    step: 'चरण',
+    applicationProcess: 'आवेदन प्रक्रिया',
+    documents: 'दस्तावेज़',
+    website: 'वेबसाइट',
+
+    // Filter Options
+    all: 'सभी',
+    subsidy: 'अनुदान',
+    loan: 'ऋण',
+    insurance: 'बीमा',
+    infrastructure: 'अवसंरचना',
+    training: 'प्रशिक्षण',
+    marketing: 'विपणन',
   },
 };
 
