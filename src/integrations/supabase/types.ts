@@ -49,6 +49,47 @@ export type Database = {
           },
         ]
       }
+      crop_recommendations: {
+        Row: {
+          created_at: string | null
+          crop_name: string
+          farm_id: string | null
+          id: string
+          reason: string | null
+          season: string | null
+          suitability_score: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          crop_name: string
+          farm_id?: string | null
+          id?: string
+          reason?: string | null
+          season?: string | null
+          suitability_score?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          crop_name?: string
+          farm_id?: string | null
+          id?: string
+          reason?: string | null
+          season?: string | null
+          suitability_score?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crop_recommendations_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       farms: {
         Row: {
           address: string | null
@@ -57,7 +98,9 @@ export type Database = {
           latitude: number
           longitude: number
           name: string
+          soil_type: string | null
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           address?: string | null
@@ -66,7 +109,9 @@ export type Database = {
           latitude: number
           longitude: number
           name: string
+          soil_type?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           address?: string | null
@@ -75,7 +120,9 @@ export type Database = {
           latitude?: number
           longitude?: number
           name?: string
+          soil_type?: string | null
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -116,6 +163,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      notifications: {
+        Row: {
+          created_at: string | null
+          id: string
+          message: string
+          read: boolean | null
+          title: string
+          type: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          message: string
+          read?: boolean | null
+          title: string
+          type?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          message?: string
+          read?: boolean | null
+          title?: string
+          type?: string | null
+          user_id?: string
+        }
+        Relationships: []
       }
       sensor_readings: {
         Row: {
@@ -169,6 +246,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_settings: {
+        Row: {
+          created_at: string | null
+          id: string
+          language: string | null
+          notification_enabled: boolean | null
+          rain_alert_threshold: number | null
+          temperature_unit: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          language?: string | null
+          notification_enabled?: boolean | null
+          rain_alert_threshold?: number | null
+          temperature_unit?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          language?: string | null
+          notification_enabled?: boolean | null
+          rain_alert_threshold?: number | null
+          temperature_unit?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
       }
     }
     Views: {

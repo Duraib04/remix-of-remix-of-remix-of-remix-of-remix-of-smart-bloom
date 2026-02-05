@@ -11,6 +11,10 @@ interface Translations {
   minAgo: string;
   
   // Dashboard
+  // Settings
+  language: string;
+  settings: string;
+  
   dashboard: string;
   liveMonitoring: string;
   
@@ -105,6 +109,9 @@ const translations: Record<Language, Translations> = {
     lastSync: 'Last checked',
     minAgo: 'min ago',
     
+    language: 'Language',
+    settings: 'Settings',
+    
     dashboard: 'My Farm',
     liveMonitoring: 'Live farm updates',
     
@@ -186,6 +193,9 @@ const translations: Record<Language, Translations> = {
     systemOnline: 'சிஸ்டம் வேலை செய்கிறது',
     lastSync: 'கடைசி செக்',
     minAgo: 'நிமிடம் முன்',
+    
+    language: 'மொழி',
+    settings: 'அமைப்புகள்',
     
     dashboard: 'என் தோட்டம்',
     liveMonitoring: 'நேரடி தகவல்கள்',
@@ -269,6 +279,9 @@ const translations: Record<Language, Translations> = {
     lastSync: 'Last check',
     minAgo: 'nimisham munnadhi',
     
+    language: 'Mozhi',
+    settings: 'Settings',
+    
     dashboard: 'En Thotam',
     liveMonitoring: 'Live thakavalkal',
     
@@ -350,6 +363,9 @@ const translations: Record<Language, Translations> = {
     systemOnline: 'सिस्टम चल रहा है',
     lastSync: 'आखिरी जांच',
     minAgo: 'मिनट पहले',
+    
+    language: 'भाषा',
+    settings: 'सेटिंग्स',
     
     dashboard: 'मेरा खेत',
     liveMonitoring: 'लाइव जानकारी',

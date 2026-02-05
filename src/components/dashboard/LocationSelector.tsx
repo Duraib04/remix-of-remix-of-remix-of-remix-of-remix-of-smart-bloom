@@ -3,6 +3,7 @@
  import { Button } from "@/components/ui/button";
  import { Input } from "@/components/ui/input";
  import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
  import { MapPin, Search, Navigation, Plus, Check, Loader2 } from "lucide-react";
  import { cn } from "@/lib/utils";
  import { useLanguage } from "@/contexts/LanguageContext";
@@ -22,14 +23,27 @@
    latitude: number;
    longitude: number;
    address: string | null;
+  soil_type: string | null;
  }
  
+const SOIL_TYPES = [
+  { value: "clay", label: "Clay Soil" },
+  { value: "sandy", label: "Sandy Soil" },
+  { value: "loamy", label: "Loamy Soil" },
+  { value: "silt", label: "Silt Soil" },
+  { value: "peat", label: "Peat Soil" },
+  { value: "chalky", label: "Chalky Soil" },
+  { value: "black", label: "Black Soil (Regur)" },
+  { value: "red", label: "Red Soil" },
+  { value: "alluvial", label: "Alluvial Soil" },
+];
+
  interface LocationSelectorProps {
    farms: Farm[];
    selectedFarm: Farm | null;
    onSelectFarm: (farmId: string) => void;
-   onCreateFarm: (name: string, lat: number, lon: number, address?: string) => Promise<unknown>;
-   onUpdateFarmLocation: (farmId: string, lat: number, lon: number, address?: string) => Promise<unknown>;
+  onCreateFarm: (name: string, lat: number, lon: number, address?: string, soilType?: string) => Promise<unknown>;
+  onUpdateFarmLocation: (farmId: string, lat: number, lon: number, address?: string, soilType?: string) => Promise<unknown>;
    isLoading?: boolean;
    className?: string;
  }
@@ -50,6 +64,7 @@
    const [latitude, setLatitude] = useState("");
    const [longitude, setLongitude] = useState("");
    const [address, setAddress] = useState("");
+  const [soilType, setSoilType] = useState("");
    const [isSubmitting, setIsSubmitting] = useState(false);
    const [isDetecting, setIsDetecting] = useState(false);
  
@@ -124,7 +139,8 @@
            selectedFarm.id,
            parseFloat(latitude),
            parseFloat(longitude),
-           address || undefined
+        address || undefined,
+        soilType || undefined
          );
        } else {
          if (!farmName.trim()) {
@@ -136,7 +152,8 @@
            farmName,
            parseFloat(latitude),
            parseFloat(longitude),
-           address || undefined
+        address || undefined,
+        soilType || undefined
          );
        }
        setIsDialogOpen(false);
@@ -152,6 +169,7 @@
      setLatitude("");
      setLongitude("");
      setAddress("");
+    setSoilType("");
      setIsEditMode(false);
    };
  
@@ -162,6 +180,7 @@
        setLatitude(selectedFarm.latitude.toString());
        setLongitude(selectedFarm.longitude.toString());
        setAddress(selectedFarm.address || "");
+    setSoilType(selectedFarm.soil_type || "");
        setIsDialogOpen(true);
      }
    };
@@ -208,7 +227,7 @@
                        <div>
                          <p className="font-medium text-sm">{farm.name}</p>
                          <p className="text-xs text-muted-foreground truncate max-w-[200px]">
-                           {farm.address || `${farm.latitude.toFixed(4)}, ${farm.longitude.toFixed(4)}`}
+                          {farm.soil_type ? `${farm.soil_type} • ` : ""}{farm.address || `${farm.latitude.toFixed(4)}, ${farm.longitude.toFixed(4)}`}
                          </p>
                        </div>
                      </div>
@@ -319,6 +338,25 @@
                          />
                        </div>
                      </div>
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="soilType">Soil Type</Label>
+                    <Select value={soilType} onValueChange={setSoilType}>
+                      <SelectTrigger id="soilType">
+                        <SelectValue placeholder="Select soil type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {SOIL_TYPES.map((type) => (
+                          <SelectItem key={type.value} value={type.value}>
+                            {type.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <p className="text-xs text-muted-foreground">
+                      Select your soil type for better crop recommendations
+                    </p>
+                  </div>
                    </div>
                    <DialogFooter>
                      <Button 
