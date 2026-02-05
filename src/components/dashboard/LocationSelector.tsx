@@ -26,18 +26,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
   soil_type: string | null;
  }
  
-const SOIL_TYPES = [
-  { value: "clay", label: "Clay Soil" },
-  { value: "sandy", label: "Sandy Soil" },
-  { value: "loamy", label: "Loamy Soil" },
-  { value: "silt", label: "Silt Soil" },
-  { value: "peat", label: "Peat Soil" },
-  { value: "chalky", label: "Chalky Soil" },
-  { value: "black", label: "Black Soil (Regur)" },
-  { value: "red", label: "Red Soil" },
-  { value: "alluvial", label: "Alluvial Soil" },
-];
-
  interface LocationSelectorProps {
    farms: Farm[];
    selectedFarm: Farm | null;
@@ -68,9 +56,21 @@ const SOIL_TYPES = [
    const [isSubmitting, setIsSubmitting] = useState(false);
    const [isDetecting, setIsDetecting] = useState(false);
  
+  const SOIL_TYPES = [
+    { value: "clay", label: t.claySoil },
+    { value: "sandy", label: t.sandySoil },
+    { value: "loamy", label: t.loamySoil },
+    { value: "silt", label: t.siltSoil },
+    { value: "peat", label: t.peatSoil },
+    { value: "chalky", label: t.chalkySoil },
+    { value: "black", label: t.blackSoil },
+    { value: "red", label: t.redSoil },
+    { value: "alluvial", label: t.alluvialSoil },
+  ];
+
    const handleDetectLocation = () => {
      if (!navigator.geolocation) {
-       alert("Geolocation is not supported by your browser");
+      alert(t.locationError);
        return;
      }
  
@@ -96,7 +96,7 @@ const SOIL_TYPES = [
        },
        (error) => {
          console.error("Geolocation error:", error);
-         alert("Failed to detect location. Please enter manually.");
+        alert(t.locationError);
          setIsDetecting(false);
        },
        { enableHighAccuracy: true, timeout: 10000 }
@@ -117,18 +117,18 @@ const SOIL_TYPES = [
          setLongitude(parseFloat(data[0].lon).toFixed(6));
          setAddress(data[0].display_name);
        } else {
-         alert("Address not found. Please try a different search.");
+        alert(t.locationError);
        }
      } catch (error) {
        console.error("Geocoding failed:", error);
-       alert("Failed to search address.");
+      alert(t.locationError);
      }
      setIsDetecting(false);
    };
  
    const handleSubmit = async () => {
      if (!latitude || !longitude) {
-       alert("Please enter or detect location coordinates");
+      alert(t.enterCoords);
        return;
      }
  
@@ -144,7 +144,7 @@ const SOIL_TYPES = [
          );
        } else {
          if (!farmName.trim()) {
-           alert("Please enter a farm name");
+          alert(t.farmName);
            setIsSubmitting(false);
            return;
          }
@@ -195,7 +195,7 @@ const SOIL_TYPES = [
        <CardHeader className="pb-2">
          <CardTitle className="text-base font-semibold flex items-center gap-2">
            <MapPin className="h-5 w-5 text-primary" />
-           {t.farmLocation || "Farm Location"}
+          {t.farmLocation}
          </CardTitle>
        </CardHeader>
        <CardContent className="space-y-3">
@@ -240,7 +240,7 @@ const SOIL_TYPES = [
              ) : (
                <div className="text-center py-4 text-muted-foreground">
                  <MapPin className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                 <p className="text-sm">No farms added yet</p>
+                <p className="text-sm">{t.noFarmsAdded}</p>
                </div>
              )}
  
@@ -250,39 +250,39 @@ const SOIL_TYPES = [
                  <DialogTrigger asChild>
                    <Button variant="outline" size="sm" className="flex-1" onClick={openAddDialog}>
                      <Plus className="h-4 w-4 mr-1" />
-                     Add Farm
+                    {t.addFarm}
                    </Button>
                  </DialogTrigger>
                  <DialogContent className="sm:max-w-[425px]">
                    <DialogHeader>
                      <DialogTitle>
-                       {isEditMode ? "Update Farm Location" : "Add New Farm"}
+                      {isEditMode ? t.updateLocation : t.addFarm}
                      </DialogTitle>
                      <DialogDescription>
-                       Enter farm details or use GPS to detect your location automatically.
+                      {t.farmDialogDesc}
                      </DialogDescription>
                    </DialogHeader>
                    <div className="grid gap-4 py-4">
                      {!isEditMode && (
                        <div className="grid gap-2">
-                         <Label htmlFor="farmName">Farm Name</Label>
+                        <Label htmlFor="farmName">{t.farmName}</Label>
                          <Input
                            id="farmName"
                            value={farmName}
                            onChange={(e) => setFarmName(e.target.value)}
-                           placeholder="e.g., Main Field, North Farm"
+                          placeholder={t.farmName}
                          />
                        </div>
                      )}
  
                      <div className="grid gap-2">
-                       <Label htmlFor="address">Address (search or type)</Label>
+                      <Label htmlFor="address">{t.address}</Label>
                        <div className="flex gap-2">
                          <Input
                            id="address"
                            value={address}
                            onChange={(e) => setAddress(e.target.value)}
-                           placeholder="Enter village, town or address"
+                          placeholder={t.searchAddress}
                            className="flex-1"
                          />
                          <Button 
@@ -311,12 +311,12 @@ const SOIL_TYPES = [
                        ) : (
                          <Navigation className="h-4 w-4 mr-2" />
                        )}
-                       Detect My Location (GPS)
+                      {t.detectLocation}
                      </Button>
  
                      <div className="grid grid-cols-2 gap-4">
                        <div className="grid gap-2">
-                         <Label htmlFor="latitude">Latitude</Label>
+                        <Label htmlFor="latitude">{t.latitude}</Label>
                          <Input
                            id="latitude"
                            type="number"
@@ -327,7 +327,7 @@ const SOIL_TYPES = [
                          />
                        </div>
                        <div className="grid gap-2">
-                         <Label htmlFor="longitude">Longitude</Label>
+                        <Label htmlFor="longitude">{t.longitude}</Label>
                          <Input
                            id="longitude"
                            type="number"
@@ -340,10 +340,10 @@ const SOIL_TYPES = [
                      </div>
 
                   <div className="grid gap-2">
-                    <Label htmlFor="soilType">Soil Type</Label>
+                      <Label htmlFor="soilType">{t.soilType}</Label>
                     <Select value={soilType} onValueChange={setSoilType}>
                       <SelectTrigger id="soilType">
-                        <SelectValue placeholder="Select soil type" />
+                          <SelectValue placeholder={t.selectSoilType} />
                       </SelectTrigger>
                       <SelectContent>
                         {SOIL_TYPES.map((type) => (
@@ -354,7 +354,7 @@ const SOIL_TYPES = [
                       </SelectContent>
                     </Select>
                     <p className="text-xs text-muted-foreground">
-                      Select your soil type for better crop recommendations
+                        {t.soilTypeHelp}
                     </p>
                   </div>
                    </div>
@@ -367,7 +367,7 @@ const SOIL_TYPES = [
                        {isSubmitting ? (
                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                        ) : null}
-                       {isEditMode ? "Update Location" : "Add Farm"}
+                      {isEditMode ? t.updateLocation : t.addFarm}
                      </Button>
                    </DialogFooter>
                  </DialogContent>
@@ -376,7 +376,7 @@ const SOIL_TYPES = [
                {selectedFarm && (
                  <Button variant="ghost" size="sm" onClick={openEditDialog}>
                    <Navigation className="h-4 w-4 mr-1" />
-                   Edit Location
+                  {t.editLocation}
                  </Button>
                )}
              </div>

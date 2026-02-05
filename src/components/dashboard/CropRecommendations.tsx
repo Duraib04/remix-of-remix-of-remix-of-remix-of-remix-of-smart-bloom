@@ -5,6 +5,7 @@
  import { Sprout, RefreshCw, Loader2, Leaf, Sun, Droplets } from "lucide-react";
  import { supabase } from "@/integrations/supabase/client";
  import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
  
  interface CropRecommendation {
    id: string;
@@ -26,6 +27,7 @@
  }
  
  export function CropRecommendations({ farmId, soilType, weather, className }: CropRecommendationsProps) {
+  const { t } = useLanguage();
    const [recommendations, setRecommendations] = useState<CropRecommendation[]>([]);
    const [isLoading, setIsLoading] = useState(false);
    const [error, setError] = useState<string | null>(null);
@@ -52,7 +54,7 @@
        }
      } catch (err) {
        console.error("Error fetching recommendations:", err);
-       setError("Failed to get recommendations");
+      setError(t.failedRecommendations);
      } finally {
        setIsLoading(false);
      }
@@ -88,13 +90,13 @@
          <CardHeader className="pb-2">
            <CardTitle className="text-base font-semibold flex items-center gap-2">
              <Sprout className="h-5 w-5 text-primary" />
-             Crop Recommendations
+            {t.cropRecommendations}
            </CardTitle>
          </CardHeader>
          <CardContent>
            <div className="text-center py-4 text-muted-foreground">
              <Sprout className="h-8 w-8 mx-auto mb-2 opacity-50" />
-             <p className="text-sm">Set your soil type to get crop recommendations</p>
+            <p className="text-sm">{t.setSoilType}</p>
            </div>
          </CardContent>
        </Card>
@@ -107,7 +109,7 @@
          <div className="flex items-center justify-between">
            <CardTitle className="text-base font-semibold flex items-center gap-2">
              <Sprout className="h-5 w-5 text-primary" />
-             Crop Recommendations
+            {t.cropRecommendations}
            </CardTitle>
            <Button
              variant="ghost"
@@ -123,7 +125,7 @@
            </Button>
          </div>
          <p className="text-xs text-muted-foreground">
-           Based on {soilType} soil
+          {t.basedOnSoil} {soilType}
          </p>
        </CardHeader>
        <CardContent>
@@ -135,14 +137,14 @@
            <div className="text-center py-4 text-destructive">
              <p className="text-sm">{error}</p>
              <Button variant="outline" size="sm" onClick={fetchRecommendations} className="mt-2">
-               Retry
+              {t.retry}
              </Button>
            </div>
          ) : recommendations.length === 0 ? (
            <div className="text-center py-4 text-muted-foreground">
-             <p className="text-sm">No recommendations available</p>
+            <p className="text-sm">{t.noRecommendations}</p>
              <Button variant="outline" size="sm" onClick={fetchRecommendations} className="mt-2">
-               Get Recommendations
+              {t.getRecommendations}
              </Button>
            </div>
          ) : (
@@ -168,7 +170,7 @@
                    </p>
                    <div className="flex items-center gap-1 mt-1">
                      <span className={cn("text-xs font-medium", getScoreColor(crop.suitability_score))}>
-                       {crop.suitability_score}% suitable
+                      {crop.suitability_score}% {t.suitable}
                      </span>
                    </div>
                  </div>

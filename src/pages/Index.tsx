@@ -11,6 +11,7 @@
  import { VoiceAssistant } from "@/components/dashboard/VoiceAssistant";
  import { LocationSelector } from "@/components/dashboard/LocationSelector";
 import { CropRecommendations } from "@/components/dashboard/CropRecommendations";
+import { AIInsightsPanel } from "@/components/dashboard/AIInsightsPanel";
  import { useLanguage } from "@/contexts/LanguageContext";
  import { useWeather } from "@/hooks/useWeather";
  import { useRainAlert } from "@/hooks/useRainAlert";
@@ -193,6 +194,26 @@ import { CropRecommendations } from "@/components/dashboard/CropRecommendations"
               }}
             />
           </section>
+
+         {/* AI Insights Panel */}
+         <section className="animate-fade-in" style={{ animationDelay: "0.07s" }}>
+           <AIInsightsPanel
+             farmId={farm?.id || null}
+             sensorData={{
+               soil_moisture: aggregatedData.soilMoisture,
+               temperature: aggregatedData.temperature,
+               humidity: aggregatedData.humidity,
+               ph_level: aggregatedData.phLevel,
+               water_level: aggregatedData.waterLevel,
+             }}
+             weather={{
+               temperature: weather.temperature,
+               humidity: weather.humidity,
+               rainProbability: weather.rainProbability,
+             }}
+             soilType={farm?.soil_type || null}
+           />
+         </section>
 
          {/* Rain Alert Banner */}
          {showRainAlert && weather.rainProbability > 60 && (
