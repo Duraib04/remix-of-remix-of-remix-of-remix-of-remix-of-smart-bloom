@@ -25,7 +25,7 @@ export function Header({ onMenuClick, className }: HeaderProps) {
         className
       )}
     >
-      <div className="container flex h-16 items-center justify-between px-4 lg:px-8">
+      <div className="w-full flex h-16 items-center justify-between px-4 lg:px-8">
         {/* Logo & Brand */}
         <div className="flex items-center gap-3">
           <button

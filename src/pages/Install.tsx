@@ -57,7 +57,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
    return (
      <div className="min-h-screen bg-background">
        <header className="sticky top-0 z-50 w-full bg-card/80 backdrop-blur-md border-b border-border/50">
-         <div className="container flex h-16 items-center px-4 lg:px-8">
+         <div className="w-full flex h-16 items-center px-4 lg:px-8">
            <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
              <ArrowLeft className="h-5 w-5" />
            </Button>
@@ -65,7 +65,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
          </div>
        </header>
  
-       <main className="container px-4 lg:px-8 py-6 space-y-6 max-w-2xl mx-auto">
+       <main className="w-full px-4 lg:px-8 py-6 space-y-6 max-w-2xl mx-auto">
          {isInstalled ? (
            <Card className="border-success/30 bg-success/5">
              <CardHeader className="text-center">

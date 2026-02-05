@@ -278,6 +278,35 @@ interface Translations {
   infrastructure: string;
   training: string;
   marketing: string;
+
+  // IRS - Irrigation Risk Score (Step 3)
+  irsScore: string;
+  riskLevelSafe: string;
+  riskLevelWarning: string;
+  riskLevelCritical: string;
+  factorBreakdown: string;
+  soilDryness: string;
+  tempStress: string;
+  humidityStress: string;
+  cropSensitivity: string;
+  weatherFactor: string;
+  sensorAnomaly: string;
+  sensorFault: string;
+  decisionReasoning: string;
+  recommendedTime: string;
+  hardwareStatus: string;
+  ledStatus: string;
+  buzzerStatus: string;
+  monitorConditions: string;
+  irrigationNeeded: string;
+  noIrrigationNeeded: string;
+  rainDelayActive: string;
+  manualOverrideActive: string;
+  safetyBlockActive: string;
+  learningInsights: string;
+  overrideRate: string;
+  avgIrsScore: string;
+  systemLearning: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -544,6 +573,35 @@ const translations: Record<Language, Translations> = {
     infrastructure: 'Infrastructure',
     training: 'Training',
     marketing: 'Marketing',
+
+    // IRS
+    irsScore: 'Irrigation Risk Score',
+    riskLevelSafe: 'Safe',
+    riskLevelWarning: 'Warning',
+    riskLevelCritical: 'Critical',
+    factorBreakdown: 'Factor Analysis',
+    soilDryness: 'Soil Dryness',
+    tempStress: 'Temp Stress',
+    humidityStress: 'Humidity Stress',
+    cropSensitivity: 'Crop Sensitivity',
+    weatherFactor: 'Rain Factor',
+    sensorAnomaly: 'Sensor reading unstable',
+    sensorFault: 'Sensor fault detected',
+    decisionReasoning: 'Why this decision?',
+    recommendedTime: 'Best time',
+    hardwareStatus: 'Hardware Status',
+    ledStatus: 'LED Status',
+    buzzerStatus: 'Buzzer Status',
+    monitorConditions: 'Monitor conditions',
+    irrigationNeeded: 'Irrigation needed',
+    noIrrigationNeeded: 'No irrigation needed',
+    rainDelayActive: 'Rain expected — irrigation delayed',
+    manualOverrideActive: 'Manual override active',
+    safetyBlockActive: 'Safety block — check sensors',
+    learningInsights: 'Learning Insights',
+    overrideRate: 'Override Rate',
+    avgIrsScore: 'Avg IRS Score',
+    systemLearning: 'System learning from your decisions',
   },
   ta: {
     appName: 'அக்வாஸ்மார்ட்',

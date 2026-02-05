@@ -335,6 +335,36 @@ export type Database = {
           },
         ]
       }
+      smart_bloom_data: {
+        Row: {
+          id: number
+          temperature: number | null
+          humidity: number | null
+          soil: number | null
+          raining: boolean | null
+          pump: boolean | null
+          created_at: string
+        }
+        Insert: {
+          id?: number
+          temperature?: number | null
+          humidity?: number | null
+          soil?: number | null
+          raining?: boolean | null
+          pump?: boolean | null
+          created_at?: string
+        }
+        Update: {
+          id?: number
+          temperature?: number | null
+          humidity?: number | null
+          soil?: number | null
+          raining?: boolean | null
+          pump?: boolean | null
+          created_at?: string
+        }
+        Relationships: []
+      }
       user_settings: {
         Row: {
           created_at: string | null
