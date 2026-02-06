@@ -1,278 +1,118 @@
 
 
-# Implementation Plan: Image Scan Feature with AI Vision Analysis
+# Plan: Fix Build Errors and Improve Chatbot Responses
 
 ## Overview
 
-This plan adds a powerful **Scan Feature** that allows farmers to take photos of crops, pests, diseases, or plants and get AI-powered identification and advice in their chosen language. The feature works like Google Lens but is tailored specifically for farming needs.
+This plan addresses two main issues:
+1. **Fix build errors** - TypeScript errors preventing the app from running
+2. **Improve chatbot** - Make responses cleaner (no `*` or `'` symbols) and more farmer-friendly
 
 ---
 
-## How It Works
+## Part 1: Fix Build Errors
 
-```text
-+------------------+     +------------------+     +------------------+
-|  User Captures   | --> |  Upload to       | --> |  AI Vision       |
-|  Photo (Camera   |     |  Supabase        |     |  Analysis        |
-|  or Gallery)     |     |  Storage         |     |  (Gemini Pro)    |
-+------------------+     +------------------+     +------------------+
-                                                          |
-                                                          v
-                         +------------------+     +------------------+
-                         |  Display Results | <-- |  Multilingual    |
-                         |  with Actions    |     |  Response        |
-                         +------------------+     +------------------+
-```
+### 1.1 Fix Index.tsx Issues
 
-### User Flow
+**Problem**: The code references properties that don't exist
 
-1. User taps the **Scan** button (camera icon) on the dashboard
-2. Choose to take a new photo or select from gallery
-3. Photo uploads to secure storage
-4. AI analyzes the image for:
-   - Plant/crop identification
-   - Disease detection
-   - Pest identification
-   - Nutrient deficiency signs
-   - General farming queries
-5. Results appear in the user's selected language (English, Tamil, Tanglish, Hindi)
-6. AI provides actionable advice based on findings
+| Line | Issue | Solution |
+|------|-------|----------|
+| 77 | `irsResult` doesn't exist on hook return | Remove - the hook only returns `decision` |
+| 82 | `processDecision` called with 1 argument | The hook auto-processes on data change; remove manual call |
+| 96 | `farm?.crop_type` doesn't exist | Use a fallback default value |
+| 303 | `irsResult` prop passed to IRSScoreCard | Remove - component only needs `decision` prop |
 
----
+**File**: `src/pages/Index.tsx`
+- Remove references to `irsResult` 
+- Simplify the `useEffect` to not call `processDecision` manually
+- Replace `farm?.crop_type` with a default value
 
-## Key Features
+### 1.2 Fix Missing Translations
 
-### Camera Integration
-- Access device camera directly from the app
-- Front/rear camera switching
-- Image preview before analysis
-- Gallery upload option for existing photos
+**Problem**: Tamil, Tanglish, and Hindi translations are missing ~40 keys
 
-### AI Vision Analysis
-- Uses Google Gemini Pro Vision model (already available via Lovable AI)
-- No additional API keys required
-- Specialized prompts for farming context
-- Multi-language response support
+Missing keys include:
+- CropEconomics: `cropEconomics`, `costBreakdownDetails`, `selectCrop`, `landSize`, `analyzeEconomics`, `totalInvestment`, `projectedEarnings`, `profitMargin`, `roi`, `investmentViability`, `viableCrop`, `notViable`, `timelineToHarvest`, `daysToMaturity`, `seedToHarvest`, `months`, `bestPlantingTime`, `marketOutlook`, `currentPrice`, `perUnit`, `expectedYield`, `quintals`, `revenuePerAcre`, `costBreakdown`, `seedCost`, `fertiliserCost`, `labourCost`, `waterManagement`, `pestControl`, `totalCost`, `economicsSummary`, `willNeed`, `expectedIncome`, `profitAfterCosts`, `timeTillHarvest`, `invalidInput`, `failedAnalysis`
+- IRS: `irsScore`, `riskLevelSafe`, `riskLevelWarning`, `riskLevelCritical`, and 23 more
 
-### Scan Types Supported
-- **Crop Health**: Identify yellowing, wilting, spots
-- **Pest Detection**: Identify insects and pests
-- **Disease Analysis**: Spot fungal, bacterial, viral infections
-- **Plant ID**: Identify unknown plants/weeds
-- **Soil Analysis**: Basic visual soil assessment
+**File**: `src/contexts/LanguageContext.tsx`
+- Add all missing translation keys to Tamil (`ta`), Tanglish, and Hindi (`hi`) objects
 
 ---
 
-## New Components
+## Part 2: Improve Chatbot Responses
 
-### 1. ScanButton Component
-A floating action button next to the voice assistant that opens the scanner interface.
+### 2.1 Clean Response Text
 
-### 2. ScannerModal Component
-Full-screen modal with:
-- Camera viewfinder or file picker
-- Capture/upload buttons
-- Analysis progress indicator
-- Results display area
+**Problem**: AI responses contain markdown formatting (`*`, `'`, `**`) which looks unfriendly
 
-### 3. ScanResultCard Component
-Displays AI analysis results:
-- Identified item with confidence
-- Problem detection (if any)
-- Recommended actions
-- Related tips
+**Solution**: Add a text cleaning function to remove markdown before displaying
+
+**File**: `src/components/dashboard/VoiceAssistant.tsx`
+- Add `cleanResponseText()` function that removes:
+  - `**bold**` markers
+  - `*italic*` markers
+  - Bullet points (`*` or `-` at line start)
+  - Extra whitespace
+- Apply cleaning before displaying and speaking
+
+### 2.2 Update Edge Function Prompts
+
+**Problem**: AI sometimes generates overly technical or formatted responses
+
+**File**: `supabase/functions/farm-assistant/index.ts`
+- Update system prompts to explicitly instruct:
+  - "Do not use markdown formatting"
+  - "Do not use asterisks or special characters"
+  - "Write in plain text only"
+  - "Keep sentences short and simple"
+
+### 2.3 Better Error Handling
+
+**File**: `src/components/dashboard/VoiceAssistant.tsx`
+- Show friendlier error messages in the user's language
+- Add retry button for failed requests
+- Show loading state more clearly
 
 ---
 
-## Technical Implementation
+## Implementation Steps
 
-### Files to Create
+### Step 1: Fix Index.tsx (5 changes)
+Remove invalid property references and simplify hook usage
 
-| File | Purpose |
-|------|---------|
-| `src/components/dashboard/ScanButton.tsx` | Floating scan button |
-| `src/components/dashboard/ScannerModal.tsx` | Camera/upload interface |
-| `src/components/dashboard/ScanResultCard.tsx` | Results display |
-| `supabase/functions/image-analyzer/index.ts` | AI vision analysis |
-| `src/hooks/useImageScanner.ts` | Camera and upload logic |
+### Step 2: Add Missing Translations (3 files modified)
+Add ~40 translation keys each to Tamil, Tanglish, and Hindi sections of LanguageContext
 
-### Files to Modify
+### Step 3: Update VoiceAssistant.tsx
+- Add `cleanResponseText()` function
+- Apply to response display and speech synthesis
+- Improve error handling
+
+### Step 4: Update Edge Function
+- Modify prompts to request plain text responses
+- Ensure all 4 languages have clear "no formatting" instructions
+
+---
+
+## Expected Results
+
+After implementation:
+- App builds without errors
+- All pages display correctly in all 4 languages
+- Chatbot responses appear as clean, readable text
+- No asterisks, bullet points, or markdown in chat
+- Speech synthesis works smoothly without reading symbols
+
+---
+
+## Files to Modify
 
 | File | Changes |
 |------|---------|
-| `src/contexts/LanguageContext.tsx` | Add scan-related translations |
-| `src/pages/Index.tsx` | Add ScanButton to dashboard |
-
-### Database Changes
-
-```sql
--- Table to store scan history
-CREATE TABLE scan_history (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  farm_id UUID REFERENCES farms(id),
-  user_id UUID REFERENCES auth.users(id),
-  image_url TEXT NOT NULL,
-  scan_type TEXT, -- 'crop', 'pest', 'disease', 'plant', 'soil'
-  result JSONB NOT NULL,
-  language TEXT DEFAULT 'en',
-  created_at TIMESTAMPTZ DEFAULT now()
-);
-
--- RLS policies for user access
-ALTER TABLE scan_history ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Users can view own scans"
-  ON scan_history FOR SELECT
-  USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can insert own scans"
-  ON scan_history FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
-```
-
-### Storage Setup
-
-```sql
--- Create storage bucket for scan images
-INSERT INTO storage.buckets (id, name, public)
-VALUES ('scan-images', 'scan-images', true);
-
--- Allow authenticated users to upload
-CREATE POLICY "Users can upload scan images"
-  ON storage.objects FOR INSERT
-  WITH CHECK (bucket_id = 'scan-images' AND auth.role() = 'authenticated');
-
-CREATE POLICY "Anyone can view scan images"
-  ON storage.objects FOR SELECT
-  USING (bucket_id = 'scan-images');
-```
-
----
-
-## Edge Function: image-analyzer
-
-The core AI analysis function that processes uploaded images.
-
-### Input
-```typescript
-{
-  imageUrl: string;      // Supabase storage URL
-  scanType?: string;     // Optional: 'crop', 'pest', 'disease', etc.
-  language: string;      // 'en', 'ta', 'tanglish', 'hi'
-  farmContext?: {        // Optional farm context
-    soilType?: string;
-    location?: string;
-  }
-}
-```
-
-### Processing
-1. Receive image URL and language preference
-2. Build specialized farming-context prompt
-3. Call Gemini Pro Vision via Lovable AI Gateway
-4. Parse and structure the response
-5. Return translated, actionable results
-
-### Output
-```typescript
-{
-  identified: {
-    name: string;           // "Tomato Leaf Blight"
-    confidence: number;     // 0.85
-    category: string;       // "disease"
-  };
-  analysis: string;         // Detailed description
-  severity?: string;        // "moderate"
-  recommendations: string[];// Action items
-  relatedTips: string[];    // Additional advice
-}
-```
-
----
-
-## New Translations
-
-Add to all 4 languages (English, Tamil, Tanglish, Hindi):
-
-```typescript
-// Scan feature translations
-scanCrop: string;           // "Scan Crop"
-takePhoto: string;          // "Take Photo"
-uploadPhoto: string;        // "Upload Photo"
-analyzing: string;          // "Analyzing..."
-scanResult: string;         // "Scan Result"
-identified: string;         // "Identified"
-problemDetected: string;    // "Problem Detected"
-recommendations: string;    // "Recommendations"
-noIssuesFound: string;      // "No Issues Found"
-scanAgain: string;          // "Scan Again"
-saveScan: string;           // "Save to History"
-scanHistory: string;        // "Scan History"
-cropHealth: string;         // "Crop Health"
-pestDetection: string;      // "Pest Detection"
-diseaseAnalysis: string;    // "Disease Analysis"
-plantId: string;            // "Plant Identification"
-soilAnalysis: string;       // "Soil Analysis"
-selectScanType: string;     // "What would you like to scan?"
-cameraPermission: string;   // "Camera permission needed"
-```
-
----
-
-## UI Design
-
-### Scan Button
-- Positioned bottom-left, opposite to voice assistant
-- Camera icon with subtle pulse animation
-- Matches app theme colors
-
-### Scanner Modal
-- Full-screen on mobile for better camera access
-- Dark overlay with centered viewfinder
-- Clear capture and cancel buttons
-- Scan type selector at top
-
-### Results Display
-- Card-based layout matching existing design
-- Color-coded severity indicators
-- Expandable recommendation sections
-- Share/save actions
-
----
-
-## Implementation Order
-
-### Step 1: Database and Storage Setup
-- Create `scan_history` table with RLS
-- Configure `scan-images` storage bucket
-
-### Step 2: Create Edge Function
-- Build `image-analyzer` function
-- Configure AI vision prompts for all languages
-- Test with sample images
-
-### Step 3: Add Translations
-- Extend LanguageContext with all scan translations
-- Ensure all 4 languages are covered
-
-### Step 4: Build UI Components
-- Create `ScanButton.tsx`
-- Create `ScannerModal.tsx` with camera integration
-- Create `ScanResultCard.tsx`
-- Create `useImageScanner.ts` hook
-
-### Step 5: Integration
-- Add ScanButton to Index.tsx
-- Connect all components
-- Test end-to-end flow
-
----
-
-## Benefits
-
-- **No External API Keys**: Uses Lovable AI's Gemini Pro Vision
-- **Works Offline-First**: Camera works without internet, uploads when connected
-- **Multilingual**: Results in farmer's preferred language
-- **Farming-Focused**: AI prompts optimized for agricultural context
-- **History Tracking**: Save and review past scans
+| `src/pages/Index.tsx` | Fix 5 TypeScript errors |
+| `src/contexts/LanguageContext.tsx` | Add ~120 missing translations (40 per language) |
+| `src/components/dashboard/VoiceAssistant.tsx` | Add text cleaning and better error handling |
+| `supabase/functions/farm-assistant/index.ts` | Update prompts for plain text responses |
 
