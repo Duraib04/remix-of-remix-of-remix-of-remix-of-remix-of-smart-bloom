@@ -304,6 +304,45 @@ interface Translations {
   overrideRate: string;
   avgIrsScore: string;
   systemLearning: string;
+
+  // Crop Economics
+  cropEconomics: string;
+  costBreakdownDetails: string;
+  selectCrop: string;
+  landSize: string;
+  analyzeEconomics: string;
+  totalInvestment: string;
+  projectedEarnings: string;
+  profitMargin: string;
+  roi: string;
+  investmentViability: string;
+  viableCrop: string;
+  notViable: string;
+  timelineToHarvest: string;
+  daysToMaturity: string;
+  seedToHarvest: string;
+  months: string;
+  bestPlantingTime: string;
+  marketOutlook: string;
+  currentPrice: string;
+  perUnit: string;
+  expectedYield: string;
+  quintals: string;
+  revenuePerAcre: string;
+  costBreakdown: string;
+  seedCost: string;
+  fertiliserCost: string;
+  labourCost: string;
+  waterManagement: string;
+  pestControl: string;
+  totalCost: string;
+  economicsSummary: string;
+  willNeed: string;
+  expectedIncome: string;
+  profitAfterCosts: string;
+  timeTillHarvest: string;
+  invalidInput: string;
+  failedAnalysis: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -596,6 +635,45 @@ const translations: Record<Language, Translations> = {
     overrideRate: 'Override Rate',
     avgIrsScore: 'Avg IRS Score',
     systemLearning: 'System learning from your decisions',
+
+    // Crop Economics
+    cropEconomics: 'Crop Economics',
+    costBreakdownDetails: 'Cost breakdown and profit analysis',
+    selectCrop: 'Select Crop',
+    landSize: 'Land Size (acres)',
+    analyzeEconomics: 'Analyze Economics',
+    totalInvestment: 'Total Investment',
+    projectedEarnings: 'Projected Earnings',
+    profitMargin: 'Profit Margin',
+    roi: 'ROI',
+    investmentViability: 'Investment Viability',
+    viableCrop: 'Viable Crop',
+    notViable: 'Not Viable',
+    timelineToHarvest: 'Timeline to Harvest',
+    daysToMaturity: 'Days to Maturity',
+    seedToHarvest: 'Seed to Harvest',
+    months: 'months',
+    bestPlantingTime: 'Best Planting Time',
+    marketOutlook: 'Market Outlook',
+    currentPrice: 'Current Price',
+    perUnit: 'per quintal',
+    expectedYield: 'Expected Yield',
+    quintals: 'quintals',
+    revenuePerAcre: 'Revenue per Acre',
+    costBreakdown: 'Cost Breakdown',
+    seedCost: 'Seed Cost',
+    fertiliserCost: 'Fertiliser Cost',
+    labourCost: 'Labour Cost',
+    waterManagement: 'Water Management',
+    pestControl: 'Pest Control',
+    totalCost: 'Total Cost',
+    economicsSummary: 'Economics Summary',
+    willNeed: 'You will need',
+    expectedIncome: 'Expected income',
+    profitAfterCosts: 'Profit after costs',
+    timeTillHarvest: 'Time till harvest',
+    invalidInput: 'Please select a crop and enter land size',
+    failedAnalysis: 'Failed to analyze economics',
   },
   ta: {
     appName: 'அக்வாஸ்மார்ட்',
@@ -857,6 +935,74 @@ const translations: Record<Language, Translations> = {
     infrastructure: 'உள்கட்டமைப்பு',
     training: 'பயிற்சி',
     marketing: 'சந்தைப்படுத்தல்',
+
+    // IRS
+    irsScore: 'நீர்ப்பாசன ஆபத்து மதிப்பெண்',
+    riskLevelSafe: 'பாதுகாப்பானது',
+    riskLevelWarning: 'எச்சரிக்கை',
+    riskLevelCritical: 'அவசரம்',
+    factorBreakdown: 'காரணி பகுப்பாய்வு',
+    soilDryness: 'மண் வறட்சி',
+    tempStress: 'வெப்ப அழுத்தம்',
+    humidityStress: 'ஈரப்பத அழுத்தம்',
+    cropSensitivity: 'பயிர் உணர்திறன்',
+    weatherFactor: 'மழை காரணி',
+    sensorAnomaly: 'சென்சார் படிப்பு நிலையற்றது',
+    sensorFault: 'சென்சார் பிழை கண்டறியப்பட்டது',
+    decisionReasoning: 'ஏன் இந்த முடிவு?',
+    recommendedTime: 'சிறந்த நேரம்',
+    hardwareStatus: 'ஹார்ட்வேர் நிலை',
+    ledStatus: 'LED நிலை',
+    buzzerStatus: 'பஸர் நிலை',
+    monitorConditions: 'நிலைமைகளை கண்காணிக்கவும்',
+    irrigationNeeded: 'நீர்ப்பாசனம் தேவை',
+    noIrrigationNeeded: 'நீர்ப்பாசனம் தேவையில்லை',
+    rainDelayActive: 'மழை எதிர்பார்க்கப்படுகிறது - நீர்ப்பாசனம் தாமதமானது',
+    manualOverrideActive: 'கைமுறை மேலெழுதல் செயலில்',
+    safetyBlockActive: 'பாதுகாப்பு தடை - சென்சார்களை சரிபாருங்கள்',
+    learningInsights: 'கற்றல் நுண்ணறிவுகள்',
+    overrideRate: 'மேலெழுதல் விகிதம்',
+    avgIrsScore: 'சராசரி IRS மதிப்பெண்',
+    systemLearning: 'உங்கள் முடிவுகளிலிருந்து கணினி கற்றுக்கொள்கிறது',
+
+    // Crop Economics
+    cropEconomics: 'பயிர் பொருளாதாரம்',
+    costBreakdownDetails: 'செலவு பிரிப்பு மற்றும் லாப பகுப்பாய்வு',
+    selectCrop: 'பயிரை தேர்ந்தெடுக்கவும்',
+    landSize: 'நிலம் அளவு (ஏக்கர்)',
+    analyzeEconomics: 'பொருளாதாரத்தை பகுப்பாய்வு செய்',
+    totalInvestment: 'மொத்த முதலீடு',
+    projectedEarnings: 'எதிர்பார்க்கப்படும் வருமானம்',
+    profitMargin: 'லாப விகிதம்',
+    roi: 'ROI',
+    investmentViability: 'முதலீட்டு நம்பகத்தன்மை',
+    viableCrop: 'சாத்தியமான பயிர்',
+    notViable: 'சாத்தியமில்லை',
+    timelineToHarvest: 'அறுவடைக்கான காலவரிசை',
+    daysToMaturity: 'முதிர்ச்சிக்கான நாட்கள்',
+    seedToHarvest: 'விதை முதல் அறுவடை',
+    months: 'மாதங்கள்',
+    bestPlantingTime: 'சிறந்த நடவு நேரம்',
+    marketOutlook: 'சந்தை கண்ணோட்டம்',
+    currentPrice: 'தற்போதைய விலை',
+    perUnit: 'குவிண்டால் ஒன்றுக்கு',
+    expectedYield: 'எதிர்பார்க்கப்படும் விளைச்சல்',
+    quintals: 'குவிண்டால்கள்',
+    revenuePerAcre: 'ஏக்கருக்கான வருமானம்',
+    costBreakdown: 'செலவு பிரிப்பு',
+    seedCost: 'விதை செலவு',
+    fertiliserCost: 'உரம் செலவு',
+    labourCost: 'கூலி செலவு',
+    waterManagement: 'நீர் மேலாண்மை',
+    pestControl: 'பூச்சி கட்டுப்பாடு',
+    totalCost: 'மொத்த செலவு',
+    economicsSummary: 'பொருளாதார சுருக்கம்',
+    willNeed: 'உங்களுக்கு தேவை',
+    expectedIncome: 'எதிர்பார்க்கப்படும் வருமானம்',
+    profitAfterCosts: 'செலவுகளுக்குப் பிறகு லாபம்',
+    timeTillHarvest: 'அறுவடை வரை நேரம்',
+    invalidInput: 'பயிரைத் தேர்ந்தெடுத்து நிலம் அளவை உள்ளிடவும்',
+    failedAnalysis: 'பொருளாதாரத்தை பகுப்பாய்வு செய்ய முடியவில்லை',
   },
   tanglish: {
     appName: 'AquaSmart',
@@ -1118,6 +1264,74 @@ const translations: Record<Language, Translations> = {
     infrastructure: 'Infrastructure',
     training: 'Training',
     marketing: 'Marketing',
+
+    // IRS
+    irsScore: 'Irrigation Risk Score',
+    riskLevelSafe: 'Safe',
+    riskLevelWarning: 'Warning',
+    riskLevelCritical: 'Critical',
+    factorBreakdown: 'Factor Analysis',
+    soilDryness: 'Mann Varatchi',
+    tempStress: 'Temp Stress',
+    humidityStress: 'Humidity Stress',
+    cropSensitivity: 'Payir Sensitivity',
+    weatherFactor: 'Mazhai Factor',
+    sensorAnomaly: 'Sensor reading stable illa',
+    sensorFault: 'Sensor problem kandupittathu',
+    decisionReasoning: 'Yen indha decision?',
+    recommendedTime: 'Best time',
+    hardwareStatus: 'Hardware Status',
+    ledStatus: 'LED Status',
+    buzzerStatus: 'Buzzer Status',
+    monitorConditions: 'Conditions monitor pannu',
+    irrigationNeeded: 'Thanneer venum',
+    noIrrigationNeeded: 'Thanneer vendam',
+    rainDelayActive: 'Mazhai varum - watering delayed',
+    manualOverrideActive: 'Manual override active',
+    safetyBlockActive: 'Safety block - sensors check pannu',
+    learningInsights: 'Learning Insights',
+    overrideRate: 'Override Rate',
+    avgIrsScore: 'Avg IRS Score',
+    systemLearning: 'Unga decisions-la irundhu system learn panrudhu',
+
+    // Crop Economics
+    cropEconomics: 'Payir Economics',
+    costBreakdownDetails: 'Cost breakdown and profit analysis',
+    selectCrop: 'Payir Select Pannu',
+    landSize: 'Nilam Size (acres)',
+    analyzeEconomics: 'Economics Analyze Pannu',
+    totalInvestment: 'Total Investment',
+    projectedEarnings: 'Expected Earnings',
+    profitMargin: 'Profit Margin',
+    roi: 'ROI',
+    investmentViability: 'Investment Viability',
+    viableCrop: 'Viable Payir',
+    notViable: 'Not Viable',
+    timelineToHarvest: 'Harvest-ku Timeline',
+    daysToMaturity: 'Maturity-ku Days',
+    seedToHarvest: 'Vithai to Harvest',
+    months: 'months',
+    bestPlantingTime: 'Best Planting Time',
+    marketOutlook: 'Market Outlook',
+    currentPrice: 'Ippodhu Price',
+    perUnit: 'per quintal',
+    expectedYield: 'Expected Yield',
+    quintals: 'quintals',
+    revenuePerAcre: 'Acre-ku Revenue',
+    costBreakdown: 'Cost Breakdown',
+    seedCost: 'Vithai Cost',
+    fertiliserCost: 'Fertiliser Cost',
+    labourCost: 'Labour Cost',
+    waterManagement: 'Thanneer Management',
+    pestControl: 'Poochi Control',
+    totalCost: 'Total Cost',
+    economicsSummary: 'Economics Summary',
+    willNeed: 'Unakku venum',
+    expectedIncome: 'Expected income',
+    profitAfterCosts: 'Costs-ku aprom profit',
+    timeTillHarvest: 'Harvest-ku time',
+    invalidInput: 'Payir select pannu and nilam size enter pannu',
+    failedAnalysis: 'Economics analyze panna mudiyala',
   },
   hi: {
     appName: 'एक्वास्मार्ट',
@@ -1379,6 +1593,74 @@ const translations: Record<Language, Translations> = {
     infrastructure: 'अवसंरचना',
     training: 'प्रशिक्षण',
     marketing: 'विपणन',
+
+    // IRS
+    irsScore: 'सिंचाई जोखिम स्कोर',
+    riskLevelSafe: 'सुरक्षित',
+    riskLevelWarning: 'चेतावनी',
+    riskLevelCritical: 'गंभीर',
+    factorBreakdown: 'कारक विश्लेषण',
+    soilDryness: 'मिट्टी सूखापन',
+    tempStress: 'तापमान तनाव',
+    humidityStress: 'नमी तनाव',
+    cropSensitivity: 'फसल संवेदनशीलता',
+    weatherFactor: 'बारिश कारक',
+    sensorAnomaly: 'सेंसर रीडिंग अस्थिर',
+    sensorFault: 'सेंसर खराबी पाई गई',
+    decisionReasoning: 'यह निर्णय क्यों?',
+    recommendedTime: 'सर्वोत्तम समय',
+    hardwareStatus: 'हार्डवेयर स्थिति',
+    ledStatus: 'LED स्थिति',
+    buzzerStatus: 'बजर स्थिति',
+    monitorConditions: 'स्थितियों की निगरानी करें',
+    irrigationNeeded: 'सिंचाई आवश्यक',
+    noIrrigationNeeded: 'सिंचाई आवश्यक नहीं',
+    rainDelayActive: 'बारिश की उम्मीद - सिंचाई स्थगित',
+    manualOverrideActive: 'मैनुअल ओवरराइड सक्रिय',
+    safetyBlockActive: 'सुरक्षा ब्लॉक - सेंसर जांचें',
+    learningInsights: 'सीखने की अंतर्दृष्टि',
+    overrideRate: 'ओवरराइड दर',
+    avgIrsScore: 'औसत IRS स्कोर',
+    systemLearning: 'आपके निर्णयों से सिस्टम सीख रहा है',
+
+    // Crop Economics
+    cropEconomics: 'फसल अर्थशास्त्र',
+    costBreakdownDetails: 'लागत विवरण और लाभ विश्लेषण',
+    selectCrop: 'फसल चुनें',
+    landSize: 'भूमि का आकार (एकड़)',
+    analyzeEconomics: 'अर्थशास्त्र विश्लेषण करें',
+    totalInvestment: 'कुल निवेश',
+    projectedEarnings: 'अनुमानित आय',
+    profitMargin: 'लाभ मार्जिन',
+    roi: 'ROI',
+    investmentViability: 'निवेश व्यवहार्यता',
+    viableCrop: 'व्यवहार्य फसल',
+    notViable: 'व्यवहार्य नहीं',
+    timelineToHarvest: 'कटाई की समयरेखा',
+    daysToMaturity: 'परिपक्वता के दिन',
+    seedToHarvest: 'बीज से कटाई',
+    months: 'महीने',
+    bestPlantingTime: 'सर्वोत्तम रोपण समय',
+    marketOutlook: 'बाजार दृष्टिकोण',
+    currentPrice: 'वर्तमान मूल्य',
+    perUnit: 'प्रति क्विंटल',
+    expectedYield: 'अपेक्षित उपज',
+    quintals: 'क्विंटल',
+    revenuePerAcre: 'प्रति एकड़ राजस्व',
+    costBreakdown: 'लागत विवरण',
+    seedCost: 'बीज लागत',
+    fertiliserCost: 'उर्वरक लागत',
+    labourCost: 'श्रम लागत',
+    waterManagement: 'जल प्रबंधन',
+    pestControl: 'कीट नियंत्रण',
+    totalCost: 'कुल लागत',
+    economicsSummary: 'अर्थशास्त्र सारांश',
+    willNeed: 'आपको चाहिए',
+    expectedIncome: 'अपेक्षित आय',
+    profitAfterCosts: 'लागत के बाद लाभ',
+    timeTillHarvest: 'कटाई तक समय',
+    invalidInput: 'कृपया फसल चुनें और भूमि का आकार दर्ज करें',
+    failedAnalysis: 'अर्थशास्त्र विश्लेषण विफल',
   },
 };
 
