@@ -2,7 +2,7 @@
 // This table is populated directly by the ESP32 hardware (no farm_id required)
 
 import { useState, useEffect, useCallback } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { sensorSupabase } from "@/integrations/supabase/client";
 
 export interface SmartBloomReading {
   id: number;
@@ -83,8 +83,7 @@ export function useLiveSensorData() {
   const fetchReadings = useCallback(async () => {
     try {
       setError(null);
-      // Use type assertion since smart_bloom_data is a custom ESP32 table
-      const { data, error: fetchError } = await (supabase as any)
+      const { data, error: fetchError } = await sensorSupabase
         .from("smart_bloom_data")
         .select("*")
         .order("created_at", { ascending: false })
@@ -121,7 +120,7 @@ export function useLiveSensorData() {
     fetchReadings();
 
     // Realtime subscription for new rows
-    const channel = supabase
+    const channel = sensorSupabase
       .channel("smart_bloom_live")
       .on(
         "postgres_changes",
@@ -154,7 +153,7 @@ export function useLiveSensorData() {
     const pollInterval = setInterval(fetchReadings, 30_000);
 
     return () => {
-      supabase.removeChannel(channel);
+      sensorSupabase.removeChannel(channel);
       clearInterval(pollInterval);
     };
   }, [fetchReadings, mapToAggregated, buildChartData]);
@@ -163,8 +162,7 @@ export function useLiveSensorData() {
   const togglePump = useCallback(async (on: boolean) => {
     try {
       // Insert a new command row — ESP32 can poll the latest `pump` value
-      // Use type assertion since smart_bloom_data is a custom ESP32 table
-      const { error: insertError } = await (supabase as any)
+      const { error: insertError } = await sensorSupabase
         .from("smart_bloom_data")
         .insert({
           temperature: latestReading?.temperature ?? 0,
