@@ -61,8 +61,15 @@ interface UseSmartIrrigationInput {
   irrigationMode: 'auto' | 'manual';
 }
 
-export function useSmartIrrigation(input: UseSmartIrrigationInput) {
-  const { farmId, sensorData, weather, soilType, cropType, irrigationMode } = input;
+export function useSmartIrrigation(input?: UseSmartIrrigationInput) {
+  const { 
+    farmId = null, 
+    sensorData = { soilMoisture: 0, temperature: 0, humidity: 0, phLevel: 0, waterLevel: 0, pumpStatus: false },
+    weather = { temperature: 0, humidity: 0, rainProbability: 0 },
+    soilType = null,
+    cropType = null,
+    irrigationMode = 'auto'
+  } = input || {};
 
   const [state, setState] = useState<SmartIrrigationState>({
     decision: null,
