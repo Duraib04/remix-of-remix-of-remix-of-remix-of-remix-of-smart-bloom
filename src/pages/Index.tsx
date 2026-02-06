@@ -74,33 +74,25 @@ const Index = () => {
   const [showRainAlert, setShowRainAlert] = useState(true);
 
   // Smart Irrigation System (8-step IRS)
-  const { irsResult, decision, processDecision, handleManualOverride } = useSmartIrrigation();
-
-  // Process IRS when sensor/weather data changes
-  useEffect(() => {
-    if (aggregatedData.soilMoisture > 0 || aggregatedData.temperature > 0) {
-      processDecision({
-        sensorData: {
-          soil_moisture: aggregatedData.soilMoisture,
-          temperature: aggregatedData.temperature,
-          humidity: aggregatedData.humidity,
-          ph_level: aggregatedData.phLevel,
-          water_level: aggregatedData.waterLevel,
-        },
-        weather: {
-          temperature: weather.temperature,
-          humidity: weather.humidity,
-          rainProbability: liveData.raining ? 100 : weather.rainProbability,
-        },
-        farmContext: {
-          cropType: farm?.crop_type || 'default',
-          soilType: farm?.soil_type || 'default',
-        },
-        mode: irrigationMode,
-        farmId: farm?.id,
-      });
-    }
-  }, [aggregatedData.soilMoisture, aggregatedData.temperature, weather.rainProbability, irrigationMode, liveData.raining]);
+  const { decision, handleManualOverride } = useSmartIrrigation({
+    farmId: farm?.id || null,
+    sensorData: {
+      soilMoisture: aggregatedData.soilMoisture,
+      temperature: aggregatedData.temperature,
+      humidity: aggregatedData.humidity,
+      phLevel: aggregatedData.phLevel,
+      waterLevel: aggregatedData.waterLevel,
+      pumpStatus: aggregatedData.pumpStatus,
+    },
+    weather: {
+      temperature: weather.temperature,
+      humidity: weather.humidity,
+      rainProbability: liveData.raining ? 100 : weather.rainProbability,
+    },
+    soilType: farm?.soil_type || null,
+    cropType: 'default',
+    irrigationMode,
+  });
 
   // Device status based on sensor data
   const devices = [
@@ -300,7 +292,6 @@ const Index = () => {
         {/* IRS Score Card - Intelligent Irrigation Dashboard */}
         <section className="animate-fade-in" style={{ animationDelay: "0.075s" }}>
           <IRSScoreCard
-            irsResult={irsResult}
             decision={decision}
           />
         </section>

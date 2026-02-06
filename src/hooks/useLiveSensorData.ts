@@ -79,22 +79,30 @@ export function useLiveSensorData() {
   }, []);
 
   // Fetch latest readings from smart_bloom_data
+  // Note: This table is created by ESP32 and may not exist in the Supabase types
   const fetchReadings = useCallback(async () => {
     try {
       setError(null);
-      const { data, error: fetchError } = await supabase
+      // Use type assertion since smart_bloom_data is a custom ESP32 table
+      const { data, error: fetchError } = await (supabase as any)
         .from("smart_bloom_data")
         .select("*")
         .order("created_at", { ascending: false })
         .limit(50);
 
-      if (fetchError) throw fetchError;
+      if (fetchError) {
+        // Table might not exist - this is expected if ESP32 hasn't created it
+        console.log("smart_bloom_data table not available:", fetchError.message);
+        setIsConnected(false);
+        setIsLoading(false);
+        return;
+      }
 
       if (data && data.length > 0) {
-        setReadings(data);
-        setLatestReading(data[0]);
-        setAggregatedData(mapToAggregated(data[0]));
-        setChartData(buildChartData(data.slice(0, 24)));
+        setReadings(data as SmartBloomReading[]);
+        setLatestReading(data[0] as SmartBloomReading);
+        setAggregatedData(mapToAggregated(data[0] as SmartBloomReading));
+        setChartData(buildChartData((data as SmartBloomReading[]).slice(0, 24)));
         setIsConnected(true);
       } else {
         setIsConnected(false);
@@ -155,7 +163,8 @@ export function useLiveSensorData() {
   const togglePump = useCallback(async (on: boolean) => {
     try {
       // Insert a new command row — ESP32 can poll the latest `pump` value
-      const { error: insertError } = await supabase
+      // Use type assertion since smart_bloom_data is a custom ESP32 table
+      const { error: insertError } = await (supabase as any)
         .from("smart_bloom_data")
         .insert({
           temperature: latestReading?.temperature ?? 0,

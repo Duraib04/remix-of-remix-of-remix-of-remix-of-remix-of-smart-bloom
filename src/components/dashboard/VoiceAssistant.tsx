@@ -2,11 +2,31 @@ import { useState, useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mic, MicOff, Volume2, Send, Loader2, MessageCircle } from "lucide-react";
+import { Mic, MicOff, Volume2, Send, Loader2, MessageCircle, RefreshCw } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+
+// Clean markdown and special characters from AI response text
+const cleanResponseText = (text: string): string => {
+  return text
+    // Remove bold markers **text**
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    // Remove italic markers *text*
+    .replace(/\*([^*]+)\*/g, '$1')
+    // Remove bullet points at line start
+    .replace(/^[\s]*[-*•]\s*/gm, '')
+    // Remove numbered list markers
+    .replace(/^[\s]*\d+\.\s*/gm, '')
+    // Remove hash headers
+    .replace(/^#+\s*/gm, '')
+    // Remove backticks
+    .replace(/`([^`]+)`/g, '$1')
+    // Remove extra whitespace
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+};
 
 interface Message {
   role: "user" | "assistant";
@@ -100,6 +120,34 @@ interface Message {
     window.speechSynthesis.speak(utterance);
   };
 
+  // Get friendly error message based on language
+  const getErrorMessage = (errorCode?: string) => {
+    const errorMessages: Record<string, Record<string, string>> = {
+      en: {
+        RATE_LIMITED: "Too many requests. Please wait a moment.",
+        CREDITS_EXHAUSTED: "Service temporarily unavailable.",
+        default: "Could not get response. Tap retry."
+      },
+      ta: {
+        RATE_LIMITED: "அதிக கோரிக்கைகள். சிறிது நேரம் காத்திருக்கவும்.",
+        CREDITS_EXHAUSTED: "சேவை தற்காலிகமாக கிடைக்கவில்லை.",
+        default: "பதில் கிடைக்கவில்லை. மீண்டும் முயற்சிக்கவும்."
+      },
+      tanglish: {
+        RATE_LIMITED: "Romba requests. Konjam wait pannunga.",
+        CREDITS_EXHAUSTED: "Service temporarily illa.",
+        default: "Response vaala. Retry pannunga."
+      },
+      hi: {
+        RATE_LIMITED: "बहुत सारे अनुरोध। कृपया थोड़ा इंतज़ार करें।",
+        CREDITS_EXHAUSTED: "सेवा अस्थायी रूप से अनुपलब्ध।",
+        default: "जवाब नहीं मिला। पुनः प्रयास करें।"
+      }
+    };
+    const messages = errorMessages[language] || errorMessages.en;
+    return messages[errorCode || 'default'] || messages.default;
+  };
+
   const sendMessage = async (text: string) => {
     if (!text.trim()) return;
 
@@ -115,19 +163,31 @@ interface Message {
 
       if (error) throw error;
 
+      if (data.error) {
+        // Handle API-level errors
+        const errorMsg = getErrorMessage(data.errorCode);
+        setMessages((prev) => [...prev, { role: "assistant", content: errorMsg }]);
+        return;
+      }
+
+      // Clean the response text before displaying
+      const cleanedResponse = cleanResponseText(data.response || "Sorry, I could not understand. Please try again.");
+
       const assistantMessage: Message = {
         role: "assistant",
-        content: data.response || "Sorry, I couldn't understand. Please try again.",
+        content: cleanedResponse,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
 
-      // Speak the response
-      speakResponse(data.response);
+      // Speak the cleaned response
+      speakResponse(cleanedResponse);
 
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Could not get response. Please try again.");
+      const errorMsg = getErrorMessage();
+      setMessages((prev) => [...prev, { role: "assistant", content: errorMsg }]);
+      toast.error(errorMsg);
     } finally {
       setIsLoading(false);
     }
