@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { ScanButton } from "@/components/dashboard/ScanButton";
+import { ScannerModal } from "@/components/dashboard/ScannerModal";
 import { Header } from "@/components/dashboard/Header";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { CircularGauge } from "@/components/dashboard/CircularGauge";
@@ -72,6 +74,7 @@ const Index = () => {
   const [isIrrigating, setIsIrrigating] = useState(false);
   const [irrigationMode, setIrrigationMode] = useState<"auto" | "manual">("auto");
   const [showRainAlert, setShowRainAlert] = useState(true);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
 
   // Smart Irrigation System (8-step IRS)
   const { decision, handleManualOverride } = useSmartIrrigation({
@@ -405,6 +408,17 @@ const Index = () => {
 
       {/* Voice Assistant */}
       <VoiceAssistant farmId={farm?.id} />
+
+      {/* Scan Button */}
+      <ScanButton onClick={() => setIsScannerOpen(true)} />
+
+      {/* Scanner Modal */}
+      <ScannerModal
+        isOpen={isScannerOpen}
+        onClose={() => setIsScannerOpen(false)}
+        farmId={farm?.id}
+        soilType={farm?.soil_type}
+      />
     </div>
   );
 };
