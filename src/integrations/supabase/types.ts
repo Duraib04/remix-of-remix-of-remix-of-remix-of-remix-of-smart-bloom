@@ -282,6 +282,47 @@ export type Database = {
         }
         Relationships: []
       }
+      scan_history: {
+        Row: {
+          created_at: string | null
+          farm_id: string | null
+          id: string
+          image_url: string
+          language: string | null
+          result: Json
+          scan_type: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          farm_id?: string | null
+          id?: string
+          image_url: string
+          language?: string | null
+          result?: Json
+          scan_type?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          farm_id?: string | null
+          id?: string
+          image_url?: string
+          language?: string | null
+          result?: Json
+          scan_type?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scan_history_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sensor_readings: {
         Row: {
           created_at: string

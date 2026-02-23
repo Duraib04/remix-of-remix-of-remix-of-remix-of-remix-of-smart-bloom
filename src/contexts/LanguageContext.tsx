@@ -343,6 +343,20 @@ interface Translations {
   timeTillHarvest: string;
   invalidInput: string;
   failedAnalysis: string;
+
+  // Scan Feature
+  scanCrop: string;
+  takePhoto: string;
+  uploadPhoto: string;
+  analyzing: string;
+  scanResult: string;
+  identified: string;
+  noIssuesFound: string;
+  recommendations: string;
+  scanAgain: string;
+  pestDetection: string;
+  diseaseAnalysis: string;
+  soilAnalysis: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -674,6 +688,18 @@ const translations: Record<Language, Translations> = {
     timeTillHarvest: 'Time till harvest',
     invalidInput: 'Please select a crop and enter land size',
     failedAnalysis: 'Failed to analyze economics',
+    scanCrop: 'Scan Crop',
+    takePhoto: 'Take Photo',
+    uploadPhoto: 'Upload Photo',
+    analyzing: 'Analyzing...',
+    scanResult: 'Scan Result',
+    identified: 'Identified',
+    noIssuesFound: 'No Issues Found',
+    recommendations: 'Recommendations',
+    scanAgain: 'Scan Again',
+    pestDetection: 'Pest Detection',
+    diseaseAnalysis: 'Disease Analysis',
+    soilAnalysis: 'Soil Analysis',
   },
   ta: {
     appName: 'அக்வாஸ்மார்ட்',
@@ -1003,6 +1029,18 @@ const translations: Record<Language, Translations> = {
     timeTillHarvest: 'அறுவடை வரை நேரம்',
     invalidInput: 'பயிரைத் தேர்ந்தெடுத்து நிலம் அளவை உள்ளிடவும்',
     failedAnalysis: 'பொருளாதாரத்தை பகுப்பாய்வு செய்ய முடியவில்லை',
+    scanCrop: 'பயிரை ஸ்கேன் செய்',
+    takePhoto: 'புகைப்படம் எடு',
+    uploadPhoto: 'புகைப்படம் பதிவேற்று',
+    analyzing: 'பகுப்பாய்வு செய்கிறது...',
+    scanResult: 'ஸ்கேன் முடிவு',
+    identified: 'கண்டறியப்பட்டது',
+    noIssuesFound: 'பிரச்சனை இல்லை',
+    recommendations: 'பரிந்துரைகள்',
+    scanAgain: 'மீண்டும் ஸ்கேன் செய்',
+    pestDetection: 'பூச்சி கண்டறிதல்',
+    diseaseAnalysis: 'நோய் பகுப்பாய்வு',
+    soilAnalysis: 'மண் பகுப்பாய்வு',
   },
   tanglish: {
     appName: 'AquaSmart',
@@ -1332,6 +1370,18 @@ const translations: Record<Language, Translations> = {
     timeTillHarvest: 'Harvest-ku time',
     invalidInput: 'Payir select pannu and nilam size enter pannu',
     failedAnalysis: 'Economics analyze panna mudiyala',
+    scanCrop: 'Payirai Scan Pannu',
+    takePhoto: 'Photo Edu',
+    uploadPhoto: 'Photo Upload Pannu',
+    analyzing: 'Analyze pannudhu...',
+    scanResult: 'Scan Result',
+    identified: 'Kandupidichadu',
+    noIssuesFound: 'Problem Illa',
+    recommendations: 'Parindhuraigal',
+    scanAgain: 'Meendum Scan Pannu',
+    pestDetection: 'Poochi Detection',
+    diseaseAnalysis: 'Noi Analysis',
+    soilAnalysis: 'Mann Analysis',
   },
   hi: {
     appName: 'एक्वास्मार्ट',
@@ -1661,6 +1711,18 @@ const translations: Record<Language, Translations> = {
     timeTillHarvest: 'कटाई तक समय',
     invalidInput: 'कृपया फसल चुनें और भूमि का आकार दर्ज करें',
     failedAnalysis: 'अर्थशास्त्र विश्लेषण विफल',
+    scanCrop: 'फसल स्कैन करें',
+    takePhoto: 'फोटो लें',
+    uploadPhoto: 'फोटो अपलोड करें',
+    analyzing: 'विश्लेषण हो रहा है...',
+    scanResult: 'स्कैन परिणाम',
+    identified: 'पहचाना गया',
+    noIssuesFound: 'कोई समस्या नहीं',
+    recommendations: 'सिफारिशें',
+    scanAgain: 'फिर से स्कैन करें',
+    pestDetection: 'कीट पहचान',
+    diseaseAnalysis: 'रोग विश्लेषण',
+    soilAnalysis: 'मिट्टी विश्लेषण',
   },
 };
 
