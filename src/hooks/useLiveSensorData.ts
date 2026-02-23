@@ -83,7 +83,7 @@ export function useLiveSensorData() {
   const fetchReadings = useCallback(async () => {
     try {
       setError(null);
-      const { data, error: fetchError } = await sensorSupabase
+      const { data, error: fetchError } = await (sensorSupabase as any)
         .from("smart_bloom_data")
         .select("*")
         .order("created_at", { ascending: false })
@@ -162,7 +162,7 @@ export function useLiveSensorData() {
   const togglePump = useCallback(async (on: boolean) => {
     try {
       // Insert a new command row — ESP32 can poll the latest `pump` value
-      const { error: insertError } = await sensorSupabase
+      const { error: insertError } = await (sensorSupabase as any)
         .from("smart_bloom_data")
         .insert({
           temperature: latestReading?.temperature ?? 0,
