@@ -357,6 +357,35 @@ interface Translations {
   pestDetection: string;
   diseaseAnalysis: string;
   soilAnalysis: string;
+
+  // Harvest Profit Predictor
+  harvestPredictor: string;
+  harvestPredictorDesc: string;
+  predictProfit: string;
+  sellNowRec: string;
+  holdRec: string;
+  waitPeakRec: string;
+  sellNowReason: string;
+  holdReason: string;
+  waitPeakReason: string;
+  extraProfit: string;
+  currentMarketPrice: string;
+  marketPrice: string;
+  sellNowValue: string;
+  peakPrice: string;
+  priceChange12m: string;
+  priceTrend: string;
+  seasonalDemand: string;
+  currentMonth: string;
+  bestSellMonth: string;
+  holdingCosts: string;
+  storageCost: string;
+  spoilageLoss: string;
+  waitMonths: string;
+  profitComparison: string;
+  sellAtPeak: string;
+  netGain: string;
+  perishableWarning: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -700,6 +729,33 @@ const translations: Record<Language, Translations> = {
     pestDetection: 'Pest Detection',
     diseaseAnalysis: 'Disease Analysis',
     soilAnalysis: 'Soil Analysis',
+    harvestPredictor: 'Harvest Profit Predictor',
+    harvestPredictorDesc: 'Find the best time to sell your crops for maximum profit',
+    predictProfit: 'Predict Profit',
+    sellNowRec: '🟢 Sell Now!',
+    holdRec: '🟡 Hold & Monitor',
+    waitPeakRec: '🔵 Wait for Peak',
+    sellNowReason: 'Current prices are good and holding costs outweigh potential gains.',
+    holdReason: 'Prices may improve. Best expected month:',
+    waitPeakReason: 'Prices are expected to peak in',
+    extraProfit: 'Extra profit',
+    currentMarketPrice: 'Current Price',
+    marketPrice: 'Market Price',
+    sellNowValue: 'Sell Now Value',
+    peakPrice: 'Peak Price',
+    priceChange12m: '12-Month Change',
+    priceTrend: 'Price Trend (12 Months)',
+    seasonalDemand: 'Seasonal Demand Calendar',
+    currentMonth: 'Current Month',
+    bestSellMonth: 'Best Sell Month',
+    holdingCosts: 'Holding Costs',
+    storageCost: 'Storage Cost',
+    spoilageLoss: 'Spoilage Loss',
+    waitMonths: 'Months to Wait',
+    profitComparison: 'Profit Comparison',
+    sellAtPeak: 'Sell at Peak (net)',
+    netGain: 'Net Gain from Waiting',
+    perishableWarning: '⚠️ This crop is highly perishable. Storage losses are significant — sell quickly if possible.',
   },
   ta: {
     appName: 'அக்வாஸ்மார்ட்',
@@ -1041,6 +1097,33 @@ const translations: Record<Language, Translations> = {
     pestDetection: 'பூச்சி கண்டறிதல்',
     diseaseAnalysis: 'நோய் பகுப்பாய்வு',
     soilAnalysis: 'மண் பகுப்பாய்வு',
+    harvestPredictor: 'அறுவடை லாப கணிப்பான்',
+    harvestPredictorDesc: 'அதிக லாபத்திற்கு விற்க சிறந்த நேரத்தை கண்டறியுங்கள்',
+    predictProfit: 'லாபம் கணிக்க',
+    sellNowRec: '🟢 இப்போதே விற்கவும்!',
+    holdRec: '🟡 வைத்திருங்கள்',
+    waitPeakRec: '🔵 உச்ச விலைக்கு காத்திருங்கள்',
+    sellNowReason: 'தற்போதைய விலை நல்லது, சேமிப்பு செலவு அதிகம்.',
+    holdReason: 'விலை உயரலாம். சிறந்த மாதம்:',
+    waitPeakReason: 'விலை உச்சம் அடையும் மாதம்',
+    extraProfit: 'கூடுதல் லாபம்',
+    currentMarketPrice: 'தற்போதைய விலை',
+    marketPrice: 'சந்தை விலை',
+    sellNowValue: 'இப்போது விற்றால்',
+    peakPrice: 'உச்ச விலை',
+    priceChange12m: '12 மாத மாற்றம்',
+    priceTrend: 'விலை போக்கு (12 மாதங்கள்)',
+    seasonalDemand: 'பருவகால தேவை நாட்காட்டி',
+    currentMonth: 'நடப்பு மாதம்',
+    bestSellMonth: 'சிறந்த விற்பனை மாதம்',
+    holdingCosts: 'சேமிப்பு செலவுகள்',
+    storageCost: 'கிடங்கு செலவு',
+    spoilageLoss: 'கெட்டுப்போகும் இழப்பு',
+    waitMonths: 'காத்திருக்கும் மாதங்கள்',
+    profitComparison: 'லாப ஒப்பீடு',
+    sellAtPeak: 'உச்சத்தில் விற்றால் (நிகர)',
+    netGain: 'காத்திருப்பதால் நிகர லாபம்',
+    perishableWarning: '⚠️ இது விரைவில் கெட்டுப்போகும் பயிர். சேமிப்பு இழப்பு அதிகம் — விரைவில் விற்கவும்.',
   },
   tanglish: {
     appName: 'AquaSmart',
@@ -1382,6 +1465,33 @@ const translations: Record<Language, Translations> = {
     pestDetection: 'Poochi Detection',
     diseaseAnalysis: 'Noi Analysis',
     soilAnalysis: 'Mann Analysis',
+    harvestPredictor: 'Harvest Profit Predictor',
+    harvestPredictorDesc: 'Athiga labathukku eppo vikkanum nu kandupidunga',
+    predictProfit: 'Profit Predict Pannu',
+    sellNowRec: '🟢 Ippo Vikkuinga!',
+    holdRec: '🟡 Vachchirunga',
+    waitPeakRec: '🔵 Peak ku Wait Pannunga',
+    sellNowReason: 'Ippo price nallaa iruku, storage cost athigam.',
+    holdReason: 'Price increase aagalam. Best month:',
+    waitPeakReason: 'Price peak aagum month',
+    extraProfit: 'Extra labam',
+    currentMarketPrice: 'Ippo Price',
+    marketPrice: 'Market Price',
+    sellNowValue: 'Ippo Vikka Value',
+    peakPrice: 'Peak Price',
+    priceChange12m: '12-Month Change',
+    priceTrend: 'Price Trend (12 Months)',
+    seasonalDemand: 'Season Demand Calendar',
+    currentMonth: 'Ippo Month',
+    bestSellMonth: 'Best Sell Month',
+    holdingCosts: 'Storage Costs',
+    storageCost: 'Kidangu Cost',
+    spoilageLoss: 'Kettupona Loss',
+    waitMonths: 'Wait Months',
+    profitComparison: 'Profit Comparison',
+    sellAtPeak: 'Peak la Vikka (net)',
+    netGain: 'Wait Panna Kidaikura Extra',
+    perishableWarning: '⚠️ Idhu seekiram kettupoora crop. Storage la niraiya loss — seekiram vikkuinga.',
   },
   hi: {
     appName: 'एक्वास्मार्ट',
@@ -1723,6 +1833,33 @@ const translations: Record<Language, Translations> = {
     pestDetection: 'कीट पहचान',
     diseaseAnalysis: 'रोग विश्लेषण',
     soilAnalysis: 'मिट्टी विश्लेषण',
+    harvestPredictor: 'फसल लाभ भविष्यवक्ता',
+    harvestPredictorDesc: 'अधिकतम लाभ के लिए बेचने का सही समय जानें',
+    predictProfit: 'लाभ अनुमान',
+    sellNowRec: '🟢 अभी बेचें!',
+    holdRec: '🟡 रुकें और देखें',
+    waitPeakRec: '🔵 शिखर की प्रतीक्षा करें',
+    sellNowReason: 'वर्तमान मूल्य अच्छा है और भंडारण लागत अधिक है।',
+    holdReason: 'कीमत बढ़ सकती है। सर्वोत्तम महीना:',
+    waitPeakReason: 'कीमत चरम पर पहुंचने की उम्मीद',
+    extraProfit: 'अतिरिक्त लाभ',
+    currentMarketPrice: 'वर्तमान मूल्य',
+    marketPrice: 'बाज़ार मूल्य',
+    sellNowValue: 'अभी बेचने का मूल्य',
+    peakPrice: 'शिखर मूल्य',
+    priceChange12m: '12 महीने का बदलाव',
+    priceTrend: 'मूल्य रुझान (12 महीने)',
+    seasonalDemand: 'मौसमी मांग कैलेंडर',
+    currentMonth: 'वर्तमान महीना',
+    bestSellMonth: 'बेचने का सर्वोत्तम महीना',
+    holdingCosts: 'भंडारण लागत',
+    storageCost: 'गोदाम लागत',
+    spoilageLoss: 'खराबी का नुकसान',
+    waitMonths: 'प्रतीक्षा के महीने',
+    profitComparison: 'लाभ तुलना',
+    sellAtPeak: 'शिखर पर बेचें (शुद्ध)',
+    netGain: 'प्रतीक्षा से शुद्ध लाभ',
+    perishableWarning: '⚠️ यह जल्दी खराब होने वाली फसल है। भंडारण में काफी नुकसान — जल्दी बेचें।',
   },
 };
 
