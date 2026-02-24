@@ -15,6 +15,7 @@ import { LocationSelector } from "@/components/dashboard/LocationSelector";
 import { CropRecommendations } from "@/components/dashboard/CropRecommendations";
 import { AIInsightsPanel } from "@/components/dashboard/AIInsightsPanel";
 import { CropEconomicsAnalyzer } from "@/components/dashboard/CropEconomicsAnalyzer";
+import { HarvestProfitPredictor } from "@/components/dashboard/HarvestProfitPredictor";
 import { CooperativeStoresLocator } from "@/components/dashboard/CooperativeStoresLocator";
 import { GovernmentSchemesFinder } from "@/components/dashboard/GovernmentSchemesFinder";
 import { IRSScoreCard } from "@/components/dashboard/IRSScoreCard";
@@ -302,6 +303,11 @@ const Index = () => {
         {/* Crop Economics & Earnings Prediction */}
         <section className="animate-fade-in" style={{ animationDelay: "0.08s" }}>
           <CropEconomicsAnalyzer />
+        </section>
+
+        {/* Harvest Profit Predictor */}
+        <section className="animate-fade-in" style={{ animationDelay: "0.085s" }}>
+          <HarvestProfitPredictor />
         </section>
 
         {/* Government Cooperative Stores Locator */}
