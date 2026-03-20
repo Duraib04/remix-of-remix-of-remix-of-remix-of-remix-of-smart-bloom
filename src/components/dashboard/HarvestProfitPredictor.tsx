@@ -317,12 +317,58 @@ export function HarvestProfitPredictor() {
           </Button>
         </div>
 
-        {prediction && (
-          <div className="space-y-4 animate-fade-in">
-            {/* Recommendation Banner */}
-            {(() => {
-              const config = recommendationConfig[prediction.recommendation];
-              const RecIcon = config.icon;
+        {/* Live Market Prices Section */}
+        {pricesLoading && (
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-40" />
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              {[1,2,3,4,5].map(i => <Skeleton key={i} className="h-20 rounded-lg" />)}
+            </div>
+          </div>
+        )}
+
+        {liveMarketData && !pricesLoading && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="text-sm font-semibold flex items-center gap-1.5">
+                <Wifi className="h-3.5 w-3.5 text-green-500" />
+                {t.livePrices}
+              </h4>
+              <Button variant="ghost" size="sm" className="h-7 text-xs gap-1" onClick={() => fetchPrices(undefined, language)}>
+                <RefreshCw className="h-3 w-3" />
+                {t.refreshPrices}
+              </Button>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              {liveMarketData.prices.map((p) => {
+                const weekDelta = ((p.currentPrice - p.weekAgoPrice) / p.weekAgoPrice * 100);
+                return (
+                  <div
+                    key={p.crop}
+                    className={`rounded-lg p-2.5 border text-center cursor-pointer transition-all hover:shadow-md ${
+                      selectedCrop === p.crop ? 'ring-2 ring-primary border-primary bg-primary/5' : 'border-border bg-card'
+                    }`}
+                    onClick={() => setSelectedCrop(p.crop)}
+                  >
+                    <div className="text-xs font-medium capitalize">{p.crop}</div>
+                    <div className="text-sm font-bold mt-0.5">₹{p.currentPrice.toLocaleString('en-IN')}</div>
+                    <div className={`text-[10px] flex items-center justify-center gap-0.5 ${weekDelta >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {weekDelta >= 0 ? <TrendingUp className="h-2.5 w-2.5" /> : <TrendingDown className="h-2.5 w-2.5" />}
+                      {weekDelta >= 0 ? '+' : ''}{weekDelta.toFixed(1)}%
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            {liveMarketData.marketSummary && (
+              <p className="text-xs text-muted-foreground italic">{liveMarketData.marketSummary}</p>
+            )}
+          </div>
+        )}
+
+        {pricesError && (
+          <p className="text-xs text-destructive">{pricesError}</p>
+        )}
               return (
                 <div className={`rounded-lg p-4 border ${config.bg}`}>
                   <div className="flex items-start gap-3">
