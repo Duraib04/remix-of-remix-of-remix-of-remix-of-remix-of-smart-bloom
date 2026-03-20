@@ -1,12 +1,13 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, TrendingDown, IndianRupee, Calendar, BarChart3, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { TrendingUp, TrendingDown, IndianRupee, Calendar, BarChart3, AlertTriangle, CheckCircle, Clock, RefreshCw, Wifi, MapPin } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Area, AreaChart } from 'recharts';
-
+import { useMarketPrices, type CropPrice } from '@/hooks/useMarketPrices';
 interface MonthlyPrice {
   month: string;
   price: number;
@@ -169,10 +170,16 @@ interface PredictionResult {
 }
 
 export function HarvestProfitPredictor() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedCrop, setSelectedCrop] = useState<string>('');
   const [quintals, setQuintals] = useState<string>('10');
   const [prediction, setPrediction] = useState<PredictionResult | null>(null);
+  const { data: liveMarketData, isLoading: pricesLoading, error: pricesError, fetchPrices } = useMarketPrices();
+
+  // Fetch live prices on mount
+  useEffect(() => {
+    fetchPrices(['rice', 'wheat', 'cotton', 'tomato', 'onion'], language);
+  }, []);
 
   const currentMonthIndex = new Date().getMonth(); // 0-based
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -182,7 +189,9 @@ export function HarvestProfitPredictor() {
     const qty = parseFloat(quintals);
     if (!crop || isNaN(qty) || qty <= 0) return;
 
-    const currentPrice = crop.historicalPrices[crop.historicalPrices.length - 1].price;
+    // Use live price if available, otherwise fallback to historical
+    const livePrice = liveMarketData?.prices?.find(p => p.crop.toLowerCase() === selectedCrop);
+    const currentPrice = livePrice?.currentPrice || crop.historicalPrices[crop.historicalPrices.length - 1].price;
     const prices12mAgo = crop.historicalPrices[0].price;
     const priceChange12m = ((currentPrice - prices12mAgo) / prices12mAgo) * 100;
 
@@ -308,8 +317,85 @@ export function HarvestProfitPredictor() {
           </Button>
         </div>
 
+        {/* Live Market Prices Section */}
+        {pricesLoading && (
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-40" />
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              {[1,2,3,4,5].map(i => <Skeleton key={i} className="h-20 rounded-lg" />)}
+            </div>
+          </div>
+        )}
+
+        {liveMarketData && !pricesLoading && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <h4 className="text-sm font-semibold flex items-center gap-1.5">
+                <Wifi className="h-3.5 w-3.5 text-green-500" />
+                {t.livePrices}
+              </h4>
+              <Button variant="ghost" size="sm" className="h-7 text-xs gap-1" onClick={() => fetchPrices(undefined, language)}>
+                <RefreshCw className="h-3 w-3" />
+                {t.refreshPrices}
+              </Button>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              {liveMarketData.prices.map((p) => {
+                const weekDelta = ((p.currentPrice - p.weekAgoPrice) / p.weekAgoPrice * 100);
+                return (
+                  <div
+                    key={p.crop}
+                    className={`rounded-lg p-2.5 border text-center cursor-pointer transition-all hover:shadow-md ${
+                      selectedCrop === p.crop ? 'ring-2 ring-primary border-primary bg-primary/5' : 'border-border bg-card'
+                    }`}
+                    onClick={() => setSelectedCrop(p.crop)}
+                  >
+                    <div className="text-xs font-medium capitalize">{p.crop}</div>
+                    <div className="text-sm font-bold mt-0.5">₹{p.currentPrice.toLocaleString('en-IN')}</div>
+                    <div className={`text-[10px] flex items-center justify-center gap-0.5 ${weekDelta >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {weekDelta >= 0 ? <TrendingUp className="h-2.5 w-2.5" /> : <TrendingDown className="h-2.5 w-2.5" />}
+                      {weekDelta >= 0 ? '+' : ''}{weekDelta.toFixed(1)}%
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            {liveMarketData.marketSummary && (
+              <p className="text-xs text-muted-foreground italic">{liveMarketData.marketSummary}</p>
+            )}
+          </div>
+        )}
+
+        {pricesError && (
+          <p className="text-xs text-destructive">{pricesError}</p>
+        )}
+
         {prediction && (
           <div className="space-y-4 animate-fade-in">
+            {/* Live Mandi Data for Selected Crop */}
+            {liveMarketData && (() => {
+              const livePrice = liveMarketData.prices.find(p => p.crop.toLowerCase() === prediction.crop.nameKey);
+              if (!livePrice) return null;
+              return (
+                <div className="bg-card rounded-lg p-3 border border-green-200 dark:border-green-800">
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPin className="h-3.5 w-3.5 text-green-600" />
+                    <span className="text-xs font-semibold">{t.topMandis}</span>
+                    <span className="text-[10px] text-muted-foreground ml-auto">{livePrice.forecast}</span>
+                  </div>
+                  <div className="flex gap-2 overflow-x-auto">
+                    {livePrice.topMandis?.map((m, i) => (
+                      <div key={i} className="flex-shrink-0 text-center px-3 py-1.5 rounded bg-muted text-xs">
+                        <div className="font-medium">{m.name}</div>
+                        <div className="text-muted-foreground">{m.state}</div>
+                        <div className="font-bold">₹{m.price.toLocaleString('en-IN')}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* Recommendation Banner */}
             {(() => {
               const config = recommendationConfig[prediction.recommendation];

@@ -50,6 +50,7 @@ export default defineConfig(({ mode }) => ({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        navigateFallbackDenylist: [/^\/~oauth/],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/api\.openweathermap\.org\/.*/i,
@@ -58,8 +59,32 @@ export default defineConfig(({ mode }) => ({
               cacheName: 'weather-api-cache',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 30, // 30 minutes
+                maxAgeSeconds: 60 * 30,
               },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/.*\.supabase\.co\/functions\/v1\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'edge-functions-cache',
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60,
+              },
+              networkTimeoutSeconds: 10,
+            },
+          },
+          {
+            urlPattern: /^https:\/\/.*\.supabase\.co\/rest\/v1\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'supabase-data-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 15,
+              },
+              networkTimeoutSeconds: 5,
             },
           },
         ],

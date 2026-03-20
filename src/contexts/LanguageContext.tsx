@@ -386,6 +386,23 @@ interface Translations {
   sellAtPeak: string;
   netGain: string;
   perishableWarning: string;
+
+  // Offline & Sync
+  pendingSync: string;
+  offlineMode: string;
+  dataWillSync: string;
+
+  // Live Market Prices
+  livePrices: string;
+  fetchingPrices: string;
+  mandiPrices: string;
+  priceforecast: string;
+  topMandis: string;
+  weekChange: string;
+  monthChange: string;
+  refreshPrices: string;
+  lastFetched: string;
+  marketSummary: string;
 }
 
 const translations: Record<Language, Translations> = {
@@ -756,6 +773,19 @@ const translations: Record<Language, Translations> = {
     sellAtPeak: 'Sell at Peak (net)',
     netGain: 'Net Gain from Waiting',
     perishableWarning: '⚠️ This crop is highly perishable. Storage losses are significant — sell quickly if possible.',
+    pendingSync: 'pending sync',
+    offlineMode: 'Offline mode',
+    dataWillSync: 'Data will sync when online',
+    livePrices: 'Live Market Prices',
+    fetchingPrices: 'Fetching live prices...',
+    mandiPrices: 'Mandi Prices',
+    priceforecast: 'Forecast',
+    topMandis: 'Top Mandis',
+    weekChange: 'Week change',
+    monthChange: 'Month change',
+    refreshPrices: 'Refresh Prices',
+    lastFetched: 'Last fetched',
+    marketSummary: 'Market Summary',
   },
   ta: {
     appName: 'அக்வாஸ்மார்ட்',
@@ -1124,6 +1154,19 @@ const translations: Record<Language, Translations> = {
     sellAtPeak: 'உச்சத்தில் விற்றால் (நிகர)',
     netGain: 'காத்திருப்பதால் நிகர லாபம்',
     perishableWarning: '⚠️ இது விரைவில் கெட்டுப்போகும் பயிர். சேமிப்பு இழப்பு அதிகம் — விரைவில் விற்கவும்.',
+    pendingSync: 'ஒத்திசைக்க உள்ளது',
+    offlineMode: 'ஆஃப்லைன் பயன்முறை',
+    dataWillSync: 'இணையம் வந்ததும் ஒத்திசைக்கப்படும்',
+    livePrices: 'நேரடி சந்தை விலை',
+    fetchingPrices: 'விலைகளை பெறுகிறது...',
+    mandiPrices: 'மண்டி விலைகள்',
+    priceforecast: 'முன்கணிப்பு',
+    topMandis: 'சிறந்த மண்டிகள்',
+    weekChange: 'வார மாற்றம்',
+    monthChange: 'மாத மாற்றம்',
+    refreshPrices: 'விலை புதுப்பிக்க',
+    lastFetched: 'கடைசி புதுப்பிப்பு',
+    marketSummary: 'சந்தை சுருக்கம்',
   },
   tanglish: {
     appName: 'AquaSmart',
@@ -1492,6 +1535,19 @@ const translations: Record<Language, Translations> = {
     sellAtPeak: 'Peak la Vikka (net)',
     netGain: 'Wait Panna Kidaikura Extra',
     perishableWarning: '⚠️ Idhu seekiram kettupoora crop. Storage la niraiya loss — seekiram vikkuinga.',
+    pendingSync: 'sync aaganum',
+    offlineMode: 'Offline mode',
+    dataWillSync: 'Internet vanthathum sync aagum',
+    livePrices: 'Live Market Prices',
+    fetchingPrices: 'Prices fetch pannurom...',
+    mandiPrices: 'Mandi Prices',
+    priceforecast: 'Forecast',
+    topMandis: 'Top Mandis',
+    weekChange: 'Week change',
+    monthChange: 'Month change',
+    refreshPrices: 'Prices Refresh',
+    lastFetched: 'Last fetch',
+    marketSummary: 'Market Summary',
   },
   hi: {
     appName: 'एक्वास्मार्ट',
@@ -1860,6 +1916,19 @@ const translations: Record<Language, Translations> = {
     sellAtPeak: 'शिखर पर बेचें (शुद्ध)',
     netGain: 'प्रतीक्षा से शुद्ध लाभ',
     perishableWarning: '⚠️ यह जल्दी खराब होने वाली फसल है। भंडारण में काफी नुकसान — जल्दी बेचें।',
+    pendingSync: 'सिंक बाकी',
+    offlineMode: 'ऑफलाइन मोड',
+    dataWillSync: 'इंटरनेट आने पर सिंक होगा',
+    livePrices: 'लाइव बाजार भाव',
+    fetchingPrices: 'भाव लोड हो रहे हैं...',
+    mandiPrices: 'मंडी भाव',
+    priceforecast: 'पूर्वानुमान',
+    topMandis: 'शीर्ष मंडियां',
+    weekChange: 'हफ्ते का बदलाव',
+    monthChange: 'महीने का बदलाव',
+    refreshPrices: 'भाव ताज़ा करें',
+    lastFetched: 'आखरी अपडेट',
+    marketSummary: 'बाजार सारांश',
   },
 };
 
