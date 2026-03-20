@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSelector } from "./LanguageSelector";
 import { NotificationCenter } from "./NotificationCenter";
+import { OfflineIndicator } from "./OfflineIndicator";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { useOfflineSync } from "@/hooks/useOfflineSync";
 
 interface HeaderProps {
   onMenuClick?: () => void;
@@ -17,6 +19,7 @@ export function Header({ onMenuClick, className }: HeaderProps) {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { isOnline, pendingCount, lastSyncTime, syncPendingData } = useOfflineSync();
 
   return (
     <header
@@ -47,12 +50,20 @@ export function Header({ onMenuClick, className }: HeaderProps) {
 
         {/* Status Badge */}
         <div className="hidden md:flex items-center gap-2">
-          <Badge variant="outline" className="bg-success/10 text-success border-success/30 font-medium">
-            <span className="w-2 h-2 rounded-full bg-success mr-2 animate-pulse" />
-            {t.systemOnline}
-          </Badge>
+          <OfflineIndicator
+            isOnline={isOnline}
+            pendingCount={pendingCount}
+            lastSyncTime={lastSyncTime}
+            onSync={syncPendingData}
+          />
+          {isOnline && pendingCount === 0 && (
+            <Badge variant="outline" className="bg-success/10 text-success border-success/30 font-medium">
+              <span className="w-2 h-2 rounded-full bg-success mr-2 animate-pulse" />
+              {t.systemOnline}
+            </Badge>
+          )}
           <span className="text-sm text-muted-foreground">
-            {t.lastSync}: 2 {t.minAgo}
+            {t.lastSync}: {lastSyncTime || `2 ${t.minAgo}`}
           </span>
         </div>
 

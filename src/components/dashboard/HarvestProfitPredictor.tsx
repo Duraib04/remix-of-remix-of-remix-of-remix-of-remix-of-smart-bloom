@@ -170,10 +170,16 @@ interface PredictionResult {
 }
 
 export function HarvestProfitPredictor() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [selectedCrop, setSelectedCrop] = useState<string>('');
   const [quintals, setQuintals] = useState<string>('10');
   const [prediction, setPrediction] = useState<PredictionResult | null>(null);
+  const { data: liveMarketData, isLoading: pricesLoading, error: pricesError, fetchPrices } = useMarketPrices();
+
+  // Fetch live prices on mount
+  useEffect(() => {
+    fetchPrices(['rice', 'wheat', 'cotton', 'tomato', 'onion'], language);
+  }, []);
 
   const currentMonthIndex = new Date().getMonth(); // 0-based
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
