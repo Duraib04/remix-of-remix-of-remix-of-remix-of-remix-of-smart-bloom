@@ -386,6 +386,23 @@ interface Translations {
   sellAtPeak: string;
   netGain: string;
   perishableWarning: string;
+
+  // Offline & Sync
+  pendingSync: string;
+  offlineMode: string;
+  dataWillSync: string;
+
+  // Live Market Prices
+  livePrices: string;
+  fetchingPrices: string;
+  mandiPrices: string;
+  priceforecast: string;
+  topMandis: string;
+  weekChange: string;
+  monthChange: string;
+  refreshPrices: string;
+  lastFetched: string;
+  marketSummary: string;
 }
 
 const translations: Record<Language, Translations> = {
