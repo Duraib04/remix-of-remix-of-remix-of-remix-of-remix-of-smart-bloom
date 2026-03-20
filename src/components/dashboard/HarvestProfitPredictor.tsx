@@ -369,6 +369,37 @@ export function HarvestProfitPredictor() {
         {pricesError && (
           <p className="text-xs text-destructive">{pricesError}</p>
         )}
+
+        {prediction && (
+          <div className="space-y-4 animate-fade-in">
+            {/* Live Mandi Data for Selected Crop */}
+            {liveMarketData && (() => {
+              const livePrice = liveMarketData.prices.find(p => p.crop.toLowerCase() === prediction.crop.nameKey);
+              if (!livePrice) return null;
+              return (
+                <div className="bg-card rounded-lg p-3 border border-green-200 dark:border-green-800">
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPin className="h-3.5 w-3.5 text-green-600" />
+                    <span className="text-xs font-semibold">{t.topMandis}</span>
+                    <span className="text-[10px] text-muted-foreground ml-auto">{livePrice.forecast}</span>
+                  </div>
+                  <div className="flex gap-2 overflow-x-auto">
+                    {livePrice.topMandis?.map((m, i) => (
+                      <div key={i} className="flex-shrink-0 text-center px-3 py-1.5 rounded bg-muted text-xs">
+                        <div className="font-medium">{m.name}</div>
+                        <div className="text-muted-foreground">{m.state}</div>
+                        <div className="font-bold">₹{m.price.toLocaleString('en-IN')}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Recommendation Banner */}
+            {(() => {
+              const config = recommendationConfig[prediction.recommendation];
+              const RecIcon = config.icon;
               return (
                 <div className={`rounded-lg p-4 border ${config.bg}`}>
                   <div className="flex items-start gap-3">
