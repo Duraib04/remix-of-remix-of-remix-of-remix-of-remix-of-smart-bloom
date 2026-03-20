@@ -189,7 +189,9 @@ export function HarvestProfitPredictor() {
     const qty = parseFloat(quintals);
     if (!crop || isNaN(qty) || qty <= 0) return;
 
-    const currentPrice = crop.historicalPrices[crop.historicalPrices.length - 1].price;
+    // Use live price if available, otherwise fallback to historical
+    const livePrice = liveMarketData?.prices?.find(p => p.crop.toLowerCase() === selectedCrop);
+    const currentPrice = livePrice?.currentPrice || crop.historicalPrices[crop.historicalPrices.length - 1].price;
     const prices12mAgo = crop.historicalPrices[0].price;
     const priceChange12m = ((currentPrice - prices12mAgo) / prices12mAgo) * 100;
 
