@@ -1,5 +1,7 @@
- import { useState, useEffect, useCallback } from "react";
+  import { useState, useEffect, useCallback } from "react";
  import { supabase } from "@/integrations/supabase/client";
+ import { queueOfflineWrite } from "./useOfflineSync";
+ import { toast } from "sonner";
  
  interface IrrigationLog {
    id: string;
@@ -107,21 +109,43 @@
    ) => {
      if (!farmId) return;
  
-     try {
+      try {
+       const payload = {
+         farm_id: farmId,
+         action,
+         duration_minutes: durationMinutes,
+         water_used_liters: waterUsedLiters,
+         triggered_by: triggeredBy,
+       };
+
+       // Offline path: queue and return optimistically
+       if (!navigator.onLine) {
+         queueOfflineWrite({ table: "irrigation_logs", action: "insert", data: payload });
+         toast.info("Saved offline — will sync when online");
+         return;
+       }
+
        const { error: insertError } = await supabase
          .from("irrigation_logs")
-         .insert({
+         .insert(payload);
+
+       if (insertError) throw insertError;
+       fetchLogs();
+     } catch (err) {
+       console.error("Error logging irrigation:", err);
+       // Network failure fallback → queue for later sync
+       queueOfflineWrite({
+         table: "irrigation_logs",
+         action: "insert",
+         data: {
            farm_id: farmId,
            action,
            duration_minutes: durationMinutes,
            water_used_liters: waterUsedLiters,
            triggered_by: triggeredBy,
-         });
- 
-       if (insertError) throw insertError;
-       fetchLogs();
-     } catch (err) {
-       console.error("Error logging irrigation:", err);
+         },
+       });
+       toast.warning("Network issue — saved offline, will sync later");
      }
    }, [farmId, fetchLogs]);
  
