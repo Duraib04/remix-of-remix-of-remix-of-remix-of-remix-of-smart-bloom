@@ -1,5 +1,7 @@
- import { useState, useEffect, useCallback } from "react";
+  import { useState, useEffect, useCallback } from "react";
  import { supabase } from "@/integrations/supabase/client";
+ import { queueOfflineWrite } from "./useOfflineSync";
+ import { toast } from "sonner";
  
  interface IrrigationLog {
    id: string;
