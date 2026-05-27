@@ -376,6 +376,36 @@ export type Database = {
           },
         ]
       }
+      sensor_readings_v2: {
+        Row: {
+          created_at: string
+          css: number | null
+          device_id: string | null
+          humidity: number | null
+          id: string
+          soil_moisture: number | null
+          temperature: number | null
+        }
+        Insert: {
+          created_at?: string
+          css?: number | null
+          device_id?: string | null
+          humidity?: number | null
+          id?: string
+          soil_moisture?: number | null
+          temperature?: number | null
+        }
+        Update: {
+          created_at?: string
+          css?: number | null
+          device_id?: string | null
+          humidity?: number | null
+          id?: string
+          soil_moisture?: number | null
+          temperature?: number | null
+        }
+        Relationships: []
+      }
       user_settings: {
         Row: {
           created_at: string | null
