@@ -194,17 +194,17 @@ export function LiveSensorPanel({
                             {r.humidity?.toFixed(1) ?? "--"}
                           </td>
                           <td className="text-right px-3 py-1.5">
-                            {r.soil !== null ? soilPercent(r.soil) : "--"}
+                            {r.soil_moisture !== null ? soilPercent(r.soil_moisture) : "--"}
                           </td>
                           <td className="text-center px-3 py-1.5">
-                            {r.raining ? (
+                            {(r.rain ?? "").toUpperCase() === "YES" ? (
                               <span className="text-blue-500">Yes</span>
                             ) : (
                               <span className="text-muted-foreground">No</span>
                             )}
                           </td>
                           <td className="text-center px-3 py-1.5">
-                            {r.pump ? (
+                            {(r.pump ?? "").toUpperCase() === "ON" ? (
                               <span className="text-green-500">ON</span>
                             ) : (
                               <span className="text-muted-foreground">OFF</span>
