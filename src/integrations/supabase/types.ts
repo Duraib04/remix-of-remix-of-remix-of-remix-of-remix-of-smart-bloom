@@ -381,8 +381,11 @@ export type Database = {
           created_at: string
           css: number | null
           device_id: string | null
+          flow: number | null
           humidity: number | null
           id: string
+          pump: string | null
+          rain: string | null
           soil_moisture: number | null
           temperature: number | null
         }
@@ -390,8 +393,11 @@ export type Database = {
           created_at?: string
           css?: number | null
           device_id?: string | null
+          flow?: number | null
           humidity?: number | null
           id?: string
+          pump?: string | null
+          rain?: string | null
           soil_moisture?: number | null
           temperature?: number | null
         }
@@ -399,8 +405,11 @@ export type Database = {
           created_at?: string
           css?: number | null
           device_id?: string | null
+          flow?: number | null
           humidity?: number | null
           id?: string
+          pump?: string | null
+          rain?: string | null
           soil_moisture?: number | null
           temperature?: number | null
         }
